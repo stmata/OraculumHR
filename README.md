@@ -1,0 +1,2 @@
+# OraculumHR
+Frontend HR Vision
