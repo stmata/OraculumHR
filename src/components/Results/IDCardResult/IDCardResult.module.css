@@ -1,55 +1,18 @@
 .card {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     background: transparent;
     border-radius: 16px;
     padding: 1.25rem 1.5rem;
-    margin-bottom: 1rem;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.12);
     transition: box-shadow 0.2s ease;
     cursor: pointer;
     border: 2px solid transparent;
     position: relative;
+    max-height: fit-content;
     flex-direction: column;
-    justify-content: center;
 }
-
-.customToastWarning {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: #fff7e6;
-    border: 1px solid #ffe0b3;
-    padding: 0.2rem 0.2rem;
-    border-radius: 12px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #78350f;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    margin: 1rem 0;
-    max-width: 100%;
-    margin-top: 4vh;
-}
-
-.toastIcon {
-    color: white;
-    border-radius: 8px;
-    padding: 0.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-}
-
-.toastText {
-    flex: 1;
-    line-height: 1.4;
-}
-
 
 .selected {
     border: 1.5px solid #4ade80;
@@ -93,59 +56,19 @@
     flex-direction: column;
     justify-content: center;
     margin-left: 8%;
-    gap: 5px;
     text-align: start;
-    font-size: 0.95rem;
-
-}
-
-.inputGroup {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
-
-.editLabel {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-    color: #555;
-    text-align: left;
-}
-
-.darkeditLabel {
-    color: #ccc;
-}
-
-.darkEditInputPays {
-    background-color: black !important;
-    color: white;
-}
-.iban {
-    font-size: 0.95rem;
-    color: #827c7c;
-    margin-top: 0.5rem;
-    justify-content: start;
-    text-align: left;
-    font-weight: 600;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 90%;
 }
 
 .nameRow {
     display: block;
-
 }
 
 .name {
     font-size: 1.2rem;
     font-weight: 700;
     display: inline-flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
 }
 
 .idNumber {
@@ -157,11 +80,16 @@
     font-weight: 700;
     margin-left: 1rem;
 }
+.idNumberWrapper {
+    margin-left: 1rem;
+    display: inline-block;
+    vertical-align: middle;
+}
 
 .darkIdNumber {
     background-color: #00B3E6 !important;
-
 }
+
 
 .meta {
     font-size: 0.95rem;
@@ -170,11 +98,6 @@
     justify-content: start;
     text-align: left;
     font-weight: 600;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 90%;
-    gap: 1rem;
 }
 
 
@@ -187,7 +110,8 @@
     justify-content: center;
     align-items: flex-end;
     font-weight: 900;
-
+    gap: 10px;
+    margin-top: 2rem;
 }
 
 .greenBadge {
@@ -210,12 +134,6 @@
     gap: 10px;
 }
 
-.cardWrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 1.5rem;
-    align-items: stretch;
-}
 
 .moreBtn {
     display: flex;
@@ -244,8 +162,6 @@
     margin-bottom: 1rem;
     align-items: stretch;
 }
-
-
 
 .editInputPays,
 .editInput {
@@ -276,6 +192,27 @@
     line-height: 1.4;
 }
 
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+
+.editLabel {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #555;
+    text-align: left;
+}
+
+.darkeditLabel {
+    color: #ccc;
+}
+
 .darkEditInputPays {
     background-color: black !important;
     color: white;
@@ -292,48 +229,16 @@
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.12);
     border-radius: 8px;
     padding: 0.25rem 0.75rem;
-    width: 90%;
+    margin: 0 0.5rem;
+    max-width: 100%;
 }
 
 .darkEditInputPays,
 .darkeditInputFN,
 .darkeditInputLN,
-.darkeditInputDate,
-.darkeditInputMeta {
+.darkeditInputDate {
     background-color: black !important;
     color: white !important;
-    width: 100%;
-}
-
-.editInputGuichet {
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: transparent;
-    color: #333333;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.12);
-    border-radius: 8px;
-    padding: 0.25rem 0.75rem;
-    width: 100%;
-}
-
-.darkEditInputGuichet {
-    background-color: black !important;
-    color: white !important;
-}
-
-.editInputLang {
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: transparent;
-    color: #333333;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.12);
-    border-radius: 8px;
-    padding: 0.25rem 0.75rem;
-    margin: 1rem 0.5rem;
 }
 
 .idNumberInput {
@@ -349,20 +254,6 @@
     width: 40%;
 }
 
-.editInputMeta {
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: transparent;
-    color: #333333;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.12);
-    border-radius: 8px;
-    padding: 0.25rem 0.75rem;
-    margin: 0 0.5rem;
-    width: auto !important;
-}
-
 .editInputDate {
     border: none;
     outline: none;
@@ -374,7 +265,6 @@
     border-radius: 8px;
     padding: 0.25rem 0.75rem;
     margin: 0 0.5rem;
-    margin-top: 1.6rem;
     max-width: 40%;
 }
 
@@ -401,14 +291,48 @@
     border-color: #00B3E6;
 }
 
+.customToastWarning {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #fff7e6;
+    border: 1px solid #ffe0b3;
+    padding: 0.2rem 0.2rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #78350f;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin: 1rem 0;
+    max-width: 100%;
+    margin-top: 4vh;
+}
+
+.toastIcon {
+    color: white;
+    border-radius: 8px;
+    padding: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.toastText {
+    flex: 1;
+    line-height: 1.4;
+}
+
+
 .contentRow {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     margin-bottom: 0px;
-    max-height: 300px;
-
 }
 
 .actionButtons {
@@ -430,7 +354,8 @@
     color: #00B3E6;
 }
 
-.imagePreview {
+
+.filePreview {
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -442,150 +367,90 @@
     padding: 0.5rem;
 }
 
-.imagePreview img,
-.imagePreview iframe {
+.filePreview img,
+.filePreview iframe {
     max-width: 100%;
     max-height: none;
     border-radius: 12px;
     display: block;
 }
 
-.filePreview {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 400px;
-    height: stretch;
-    overflow: none;
-    background-color: transparent;
-    border-radius: 12px;
-    padding: 0;
-    margin-bottom: 10px;
-}
-
-.filePreview img,
-.filePreview iframe {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
-    display: block;
-}
-
-.inputContainer {
-    width: 100%;
-}
-
-@media (max-width: 1380px) {
-    .cardWrapper {
+@media (max-width: 1024px) {
+    .resultWrapper {
         flex-direction: column;
-        gap: 1rem;
+        align-items: stretch;
     }
 
     .card {
-        flex-direction: column !important;
+        max-height: none;
         padding: 1rem;
-        margin-bottom: 1rem;
     }
 
     .contentRow {
         flex-direction: column;
         align-items: flex-start;
-        margin-bottom: 1rem;
-        max-height: none;
     }
 
     .left {
-        margin-right: 0;
-        margin-bottom: 0.75rem;
-        align-items: flex-start;
-    }
-
-    .flag {
-        font-size: 2rem;
-    }
-
-    .country {
-        font-size: 0.95rem;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin: 0 0 1rem 0;
+        gap: 1rem;
     }
 
     .middle {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    .middle .nameRow,
-    .middle .meta {
+        margin-left: 0;
         width: 100%;
     }
-    
 
     .name {
+        flex-wrap: wrap;
         font-size: 1.1rem;
+        flex-direction: column;
+        /* ici la magie → en colonne sur mobile */
+        align-items: flex-start;
     }
 
     .meta {
         font-size: 0.9rem;
-        margin-top: 0.4rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
-        width: 100%;
+        margin-top: 0.5rem;
     }
 
     .right {
-        align-items: flex-start;
-        margin-top: 0.75rem;
+        margin-top: 1rem;
+        flex-direction: row;
+        gap: 1rem;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .editInputFN,
+    .editInputLN,
+    .editInputDate {
+        max-width: 90%;
         width: 100%;
-        text-align: left;
+        margin: 0.25rem 0;
     }
 
-    .right .meta {
-        font-size: 0.9rem;
-        margin-top: 0.4rem;
-    }
-
-    .moreBtn {
-        top: 0.5rem;
-        right: 0.5rem;
+    .idNumberInput {
+        width: 100%;
+        margin-left: 0;
     }
 
     .actionButtons {
+        flex-direction: column;
+        gap: 0.5rem;
         margin-top: 1rem;
     }
 
-    .saveButton {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
-    }
-
-    .imagePreview,
     .filePreview {
         width: 100%;
-        height: 500px;
-        margin-top: 1rem;
-        overflow: hidden;
+        height: auto;
     }
-
-    .imagePreview img,
-    .filePreview img,
-    .filePreview iframe {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-    }
-
-    .editInputPays,
-    .editInputFN,
-    .editInputMeta,
-    .editInputGuichet,
-    .editInputDate {
-        width: 98% !important;
-        margin: 0.25rem 0 auto;
+     .idNumberWrapper {
+        margin-left: 0 !important; /* plus de décalage */
+        margin-bottom: 0.5rem; /* petit espace après */
+        width: 100%; /* pour bien s'étendre en haut */
     }
 }
 
@@ -638,68 +503,6 @@
     .greenBadge {
         margin-left: 0;
         margin-top: 0.5rem;
-    }
-}
-
-@media (max-width: 1024px) {
-    .card {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1rem;
-    }
-
-    .left,
-    .middle,
-    .right {
-        width: 100%;
-    }
-
-    .left {
-        flex-direction: row;
-        align-items: center;
-        gap: 0.75rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .middle {
-        margin-left: 0;
-        margin-bottom: 0.5rem;
-    }
-
-    .right {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        text-align: left;
-    }
-}
-
-@media (max-width: 600px) {
-    .card {
-        padding: 0.75rem;
-    }
-
-    .flag {
-        font-size: 1.8rem;
-    }
-
-    .country {
-        font-size: 0.95rem;
-    }
-
-    .name {
-        font-size: 1.05rem;
-    }
-
-    .meta {
-        font-size: 0.85rem;
-    }
-
-    .right {
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 0.25rem;
-        font-size: 0.85rem;
     }
 }
 

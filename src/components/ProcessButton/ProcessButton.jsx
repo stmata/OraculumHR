@@ -8,6 +8,9 @@ import ErrorModal from "../ErrorModal/ErrorModal";
 
 const ProcessButton = () => {
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isErrorOpen, setIsErrorOpen] = useState(false);
+
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
 
@@ -23,46 +26,91 @@ const ProcessButton = () => {
     setSearchTerm
   } = useSession();
 
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isErrorOpen, setIsErrorOpen] = useState(false);
   const t = translations[lang];
 
-  const handleClick = async () => {
-    if (loading) return;
+  // const handleClick = async () => {
+  //   if (loading) return;
 
-    setExtractedData(null);
-    setSelectedCards([]);
-    setDetectedCountries([]);
-    setFilterMode("Manually");
-    setSelectedCountry("anywhere");
-    setSearchTerm("");
-    setLoading(true);
+  //   setExtractedData(null);
+  //   setSelectedCards([]);
+  //   setDetectedCountries([]);
+  //   setFilterMode("Manually");
+  //   setSelectedCountry("anywhere");
+  //   setSearchTerm("");
+  //   setLoading(true);
 
-    try {
-      const result = await extractDocuments(docType, uploadedFiles);
-      setExtractedData(result.documents);
-    } catch (err) {
-      setErrorMessage(t.unexpected_error);
-      setIsErrorOpen(true);
-    }
+  //   try {
+  //     const result = await extractDocuments(docType, uploadedFiles);
 
-    setLoading(false);
-  };
+  //     const enrichedDocs = result.documents.map((doc, index) => ({
+  //       ...doc,
+  //       _sourceFileIndex: index,
+  //       _sourceFileName: uploadedFiles[index]?.name || `file_${index}`
+  //     }));
+
+  //     setExtractedData(enrichedDocs);
+  //   } catch (err) {
+  //     setErrorMessage(t.unexpected_error);
+  //     setIsErrorOpen(true);
+  //   }
+
+  //   setLoading(false);
+  // };
+const handleClick = async () => {
+  if (loading) return;
+
+  // 🚨 Ajout de vérifications pour éviter les envois foireux
+  if (!docType) {
+    alert("Veuillez sélectionner un type de document.");
+    return;
+  }
+
+  if (!uploadedFiles || uploadedFiles.length === 0) {
+    alert("Veuillez ajouter au moins un fichier.");
+    return;
+  }
+
+  setExtractedData(null);
+  setSelectedCards([]);
+  setDetectedCountries([]);
+  setFilterMode("Manually");
+  setSelectedCountry("anywhere");
+  setSearchTerm("");
+  setLoading(true);
+
+  try {
+    const result = await extractDocuments(docType, uploadedFiles);
+
+    // 🟢 Correction ici → result est un tableau direct
+    const enrichedDocs = result.map((doc, index) => ({
+      ...doc,
+      _sourceFileIndex: index,
+      _sourceFileName: uploadedFiles[index]?.name || `file_${index}`
+    }));
+
+    setExtractedData(enrichedDocs);
+  } catch (err) {
+    console.error("Parsing error:", err);  // pour debug en dev
+    setErrorMessage(t.unexpected_error);
+    setIsErrorOpen(true);
+  }
+
+  setLoading(false);
+};
+
   const closeErrorModal = () => {
     setIsErrorOpen(false);
     setErrorMessage('');
   };
 
-
   return (
     <div className={styles.centerWrapper}>
       <button
         className={`
-  ${styles.btn}
-  ${isDark ? styles.btnDark : styles.btnLight}
-  ${loading ? styles.btnLoading : ""}
-`}
-
+          ${styles.btn}
+          ${isDark ? styles.btnDark : styles.btnLight}
+          ${loading ? styles.btnLoading : ""}
+        `}
         onClick={handleClick}
         disabled={loading || uploadedFiles.length === 0}
       >
@@ -70,7 +118,7 @@ const ProcessButton = () => {
           <img
             src="https://media.giphy.com/media/RllBwZbQXxreT46dqp/giphy.gif"
             alt="loading"
-            style={{ width: "10vw", height: "10vw" }} 
+            style={{ width: "10vw", height: "10vw" }}
           />
         ) : (
           t.startProcess

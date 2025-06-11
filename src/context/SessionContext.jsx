@@ -38,7 +38,6 @@ export const SessionProvider = ({ children }) => {
                 setSelectedCountry,
                 searchTerm,
                 setSearchTerm,
-
             }}
         >
             {children}

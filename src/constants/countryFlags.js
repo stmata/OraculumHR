@@ -1,571 +1,571 @@
 export const countryData = [
   {
-  name: "Morocco",
-  flag: "🇲🇦",
-  aliases: ["Maroc", "Marocaine","Al-Maghrib", "Marruecos", "المغرب"],
-  isoAlpha3: "MAR",
-  isoAlpha2: "MA"
-},
-{
-  name: "France",
-  flag: "🇫🇷",
-  aliases: ["République française", "French Republic", "Francia"],
-  isoAlpha3: "FRA",
-  isoAlpha2: "FR"
-},
-{
-  name: "Canada",
-  flag: "🇨🇦",
-  aliases: ["Kanata", "CA", "CAN"],
-  isoAlpha3: "CAN",
-  isoAlpha2: "CA"
-},
-{
-  name: "Germany",
-  flag: "🇩🇪",
-  aliases: ["Deutschland", "Allemagne", "Alemania"],
-  isoAlpha3: "DEU",
-  isoAlpha2: "DE"
-},
-{
-  name: "United States",
-  flag: "🇺🇸",
-  aliases: ["USA", "America", "États-Unis", "Estados Unidos"],
-  isoAlpha3: "USA",
-  isoAlpha2: "US"
-},
-{
-  name: "Afghanistan",
-  flag: "🇦🇫",
-  aliases: ["Afganistán", "Afganistan", "افغانستان"],
-  isoAlpha3: "AFG",
-  isoAlpha2: "AF"
-},
-{
-  name: "Albania",
-  flag: "🇦🇱",
-  aliases: ["Shqipëri", "Albanie", "Albania"],
-  isoAlpha3: "ALB",
-  isoAlpha2: "AL"
-},
-{
-  name: "Brazil",
-  flag: "🇧🇷",
-  aliases: ["Brasil", "Brésil", "ブラジル"],
-  isoAlpha3: "BRA",
-  isoAlpha2: "BR"
-},
-{
-  name: "Algeria",
-  flag: "🇩🇿",
-  aliases: ["Algérie", "Dzayer", "الجزائر"],
-  isoAlpha3: "DZA",
-  isoAlpha2: "DZ"
-},
-{
-  name: "Tunisia",
-  flag: "🇹🇳",
-  aliases: ["Tunisie", "Tunes", "تونس"],
-  isoAlpha3: "TUN",
-  isoAlpha2: "TN"
-},
-{
-  name: "China",
-  flag: "🇨🇳",
-  aliases: ["Zhongguo", "Chine", "中国"],
-  isoAlpha3: "CHN",
-  isoAlpha2: "CN"
-},
-{
-  name: "United Arab Emirates",
-  flag: "🇦🇪",
-  aliases: ["UAE", "Emirats Arabes Unis", "الإمارات"],
-  isoAlpha3: "ARE",
-  isoAlpha2: "AE"
-},
-{
-  name: "South Africa",
-  flag: "🇿🇦",
-  aliases: ["Afrique du Sud", "Sudáfrica", "Suid-Afrika", "جنوب أفريقيا"],
-  isoAlpha3: "ZAF",
-  isoAlpha2: "ZA"
-},
-{
-  name: "Japan",
-  flag: "🇯🇵",
-  aliases: ["Japon", "日本", "Nihon", "Nippon"],
-  isoAlpha3: "JPN",
-  isoAlpha2: "JP"
-},
-{
-  name: "Andorra",
-  flag: "🇦🇩",
-  aliases: ["Andorre", "Principat d'Andorra"],
-  isoAlpha3: "AND",
-  isoAlpha2: "AD"
-},
-{
-  name: "Angola",
-  flag: "🇦🇴",
-  aliases: ["Angola", "República de Angola"],
-  isoAlpha3: "AGO",
-  isoAlpha2: "AO"
-},
-{
-  name: "Antigua and Barbuda",
-  flag: "🇦🇬",
-  aliases: ["Antigua et Barbuda", "Antigua y Barbuda"],
-  isoAlpha3: "ATG",
-  isoAlpha2: "AG"
-},
-{
-  name: "Saudi Arabia",
-  flag: "🇸🇦",
-  aliases: ["Arabie Saoudite", "KSA", "المملكة العربية السعودية"],
-  isoAlpha3: "SAU",
-  isoAlpha2: "SA"
-},
-{
-  name: "Argentina",
-  flag: "🇦🇷",
-  aliases: ["Argentine", "República Argentina"],
-  isoAlpha3: "ARG",
-  isoAlpha2: "AR"
-},
-{
-  name: "Australia",
-  flag: "🇦🇺",
-  aliases: ["Australie", "Commonwealth of Australia"],
-  isoAlpha3: "AUS",
-  isoAlpha2: "AU"
-},
-{
-  name: "Austria",
-  flag: "🇦🇹",
-  aliases: ["Autriche", "Österreich"],
-  isoAlpha3: "AUT",
-  isoAlpha2: "AT"
-},
-{
-  name: "Azerbaijan",
-  flag: "🇦🇿",
-  aliases: ["Azerbaïdjan", "Azərbaycan", "آذربایجان"],
-  isoAlpha3: "AZE",
-  isoAlpha2: "AZ"
-},
-{
-  name: "Bahamas",
-  flag: "🇧🇸",
-  aliases: ["Bahamas", "Commonwealth of the Bahamas"],
-  isoAlpha3: "BHS",
-  isoAlpha2: "BS"
-},
-{
-  name: "Bahrain",
-  flag: "🇧🇭",
-  aliases: ["Bahreïn", "البحرين", "Bahréin"],
-  isoAlpha3: "BHR",
-  isoAlpha2: "BH"
-},
-{
-  name: "Bangladesh",
-  flag: "🇧🇩",
-  aliases: ["Bangladesh", "বাংলাদেশ"],
-  isoAlpha3: "BGD",
-  isoAlpha2: "BD"
-},
-{
-  name: "Barbados",
-  flag: "🇧🇧",
-  aliases: ["Barbade"],
-  isoAlpha3: "BRB",
-  isoAlpha2: "BB"
-},
-{
-  name: "Belgium",
-  flag: "🇧🇪",
-  aliases: ["Belgique", "België", "Belgien"],
-  isoAlpha3: "BEL",
-  isoAlpha2: "BE"
-},
-{
-  name: "Belize",
-  flag: "🇧🇿",
-  aliases: ["Belize"],
-  isoAlpha3: "BLZ",
-  isoAlpha2: "BZ"
-},
-{
-  name: "Benin",
-  flag: "🇧🇯",
-  aliases: ["Bénin", "Republic of Benin"],
-  isoAlpha3: "BEN",
-  isoAlpha2: "BJ"
-},
-{
-  name: "Bhutan",
-  flag: "🇧🇹",
-  aliases: ["Bhoutan", "འབྲུག་ཡུལ་"],
-  isoAlpha3: "BTN",
-  isoAlpha2: "BT"
-},
-{
-  name: "Belarus",
-  flag: "🇧🇾",
-  aliases: ["Biélorussie", "Беларусь"],
-  isoAlpha3: "BLR",
-  isoAlpha2: "BY"
-},
-{
-  name: "Myanmar",
-  flag: "🇲🇲",
-  aliases: ["Birmanie", "Myanmar", "မြန်မာ"],
-  isoAlpha3: "MMR",
-  isoAlpha2: "MM"
-},
-{
-  name: "Bolivia",
-  flag: "🇧🇴",
-  aliases: ["Bolivie", "Estado Plurinacional de Bolivia"],
-  isoAlpha3: "BOL",
-  isoAlpha2: "BO"
-},
-{
-  name: "Bosnia and Herzegovina",
-  flag: "🇧🇦",
-  aliases: ["Bosnie-Herzégovine", "Bosna i Hercegovina"],
-  isoAlpha3: "BIH",
-  isoAlpha2: "BA"
-},
-{
-  name: "Botswana",
-  flag: "🇧🇼",
-  aliases: ["Botswana", "Lefatshe la Botswana"],
-  isoAlpha3: "BWA",
-  isoAlpha2: "BW"
-},
-{
-  name: "Brunei",
-  flag: "🇧🇳",
-  aliases: ["Brunei Darussalam", "بروناي"],
-  isoAlpha3: "BRN",
-  isoAlpha2: "BN"
-},
-{
-  name: "Bulgaria",
-  flag: "🇧🇬",
-  aliases: ["Bulgarie", "България"],
-  isoAlpha3: "BGR",
-  isoAlpha2: "BG"
-},
-{
-  name: "Burkina Faso",
-  flag: "🇧🇫",
-  aliases: ["Burkina", "Burkina Faso"],
-  isoAlpha3: "BFA",
-  isoAlpha2: "BF"
-},
-{
-  name: "Burundi",
-  flag: "🇧🇮",
-  aliases: ["Burundi", "Republika y’Uburundi"],
-  isoAlpha3: "BDI",
-  isoAlpha2: "BI"
-},
-{
-  name: "Cambodia",
-  flag: "🇰🇭",
-  aliases: ["Cambodge", "កម្ពុជា", "Kampuchea"],
-  isoAlpha3: "KHM",
-  isoAlpha2: "KH"
-},
-{
-  name: "Cameroon",
-  flag: "🇨🇲",
-  aliases: ["Cameroun", "Camerún"],
-  isoAlpha3: "CMR",
-  isoAlpha2: "CM"
-},
-{
-  name: "Cape Verde",
-  flag: "🇨🇻",
-  aliases: ["Cap-Vert", "Cabo Verde"],
-  isoAlpha3: "CPV",
-  isoAlpha2: "CV"
-},
-{
-  name: "Chile",
-  flag: "🇨🇱",
-  aliases: ["Chili", "Chile", "República de Chile"],
-  isoAlpha3: "CHL",
-  isoAlpha2: "CL"
-},
-{
-  name: "Cyprus",
-  flag: "🇨🇾",
-  aliases: ["Chypre", "Republic of Cyprus", "Κύπρος", "Kıbrıs"],
-  isoAlpha3: "CYP",
-  isoAlpha2: "CY"
-},
-{
-  name: "Colombia",
-  flag: "🇨🇴",
-  aliases: ["Colombie", "Colombia", "República de Colombia"],
-  isoAlpha3: "COL",
-  isoAlpha2: "CO"
-},
-{
-  name: "Comoros",
-  flag: "🇰🇲",
-  aliases: ["Comores", "الاتحاد القمري", "Komori"],
-  isoAlpha3: "COM",
-  isoAlpha2: "KM"
-},
-{
-  name: "North Korea",
-  flag: "🇰🇵",
-  aliases: ["Corée du Nord", "DPRK", "조선민주주의인민공화국"],
-  isoAlpha3: "PRK",
-  isoAlpha2: "KP"
-},
-{
-  name: "South Corsica",
-  flag: "🏴",
-  aliases: ["Corse-du-Sud", "Corsica du Sud", "Ajaccio"],
-  isoAlpha3: "FR-S",
-  isoAlpha2: "FR" // région française, donc FR
-},
-{
-  name: "Costa Rica",
-  flag: "🇨🇷",
-  aliases: ["Costa Rica", "République du Costa Rica"],
-  isoAlpha3: "CRI",
-  isoAlpha2: "CR"
-},
-{
-  name: "Ivory Coast",
-  flag: "🇨🇮",
-  aliases: ["Côte d'Ivoire", "Costa de Marfil", "Ivory Coast"],
-  isoAlpha3: "CIV",
-  isoAlpha2: "CI"
-},
-{
-  name: "Croatia",
-  flag: "🇭🇷",
-  aliases: ["Croatie", "Hrvatska"],
-  isoAlpha3: "HRV",
-  isoAlpha2: "HR"
-},
-{
-  name: "Cuba",
-  flag: "🇨🇺",
-  aliases: ["Cuba", "Republic of Cuba", "República de Cuba"],
-  isoAlpha3: "CUB",
-  isoAlpha2: "CU"
-},
-{
-  name: "Denmark",
-  flag: "🇩🇰",
-  aliases: ["Danemark", "Danmark", "Kongeriget Danmark"],
-  isoAlpha3: "DNK",
-  isoAlpha2: "DK"
-},
-{
-  name: "Djibouti",
-  flag: "🇩🇯",
-  aliases: ["Djibouti", "جيبوتي"],
-  isoAlpha3: "DJI",
-  isoAlpha2: "DJ"
-},
-{
-  name: "Dominica",
-  flag: "🇩🇲",
-  aliases: ["Dominique", "Commonwealth of Dominica"],
-  isoAlpha3: "DMA",
-  isoAlpha2: "DM"
-},
-{
-  name: "Egypt",
-  flag: "🇪🇬",
-  aliases: ["Égypte", "Egypt", "مصر"],
-  isoAlpha3: "EGY",
-  isoAlpha2: "EG"
-},
-{
-  name: "Ecuador",
-  flag: "🇪🇨",
-  aliases: ["Équateur", "Ecuador", "República del Ecuador"],
-  isoAlpha3: "ECU",
-  isoAlpha2: "EC"
-},
-{
-  name: "Eritrea",
-  flag: "🇪🇷",
-  aliases: ["Érythrée", "Eritrea", "إريتريا"],
-  isoAlpha3: "ERI",
-  isoAlpha2: "ER"
-},
-{
-  name: "Estonia",
-  flag: "🇪🇪",
-  aliases: ["Estonie", "Eesti"],
-  isoAlpha3: "EST",
-  isoAlpha2: "EE"
-},
-{
-  name: "Ethiopia",
-  flag: "🇪🇹",
-  aliases: ["Éthiopie", "Ethiopia", "ኢትዮጵያ"],
-  isoAlpha3: "ETH",
-  isoAlpha2: "ET"
-},
-{
-  name: "Fiji",
-  flag: "🇫🇯",
-  aliases: ["Fidji", "Republic of Fiji"],
-  isoAlpha3: "FJI",
-  isoAlpha2: "FJ"
-},
-{
-  name: "Finland",
-  flag: "🇫🇮",
-  aliases: ["Finlande", "Suomi"],
-  isoAlpha3: "FIN",
-  isoAlpha2: "FI"
-},
-{
-  name: "Gabon",
-  flag: "🇬🇦",
-  aliases: ["Gabon", "République gabonaise"],
-  isoAlpha3: "GAB",
-  isoAlpha2: "GA"
-},
-{
-  name: "Gambia",
-  flag: "🇬🇲",
-  aliases: ["Gambie", "The Gambia"],
-  isoAlpha3: "GMB",
-  isoAlpha2: "GM"
-},
-{
-  name: "Georgia",
-  flag: "🇬🇪",
-  aliases: ["Géorgie", "საქართველო"],
-  isoAlpha3: "GEO",
-  isoAlpha2: "GE"
-},
-{
-  name: "Antarctica",
-  flag: "🏔️",
-  aliases: ["Antarctique", "Antarctica"],
-  isoAlpha3: "ATA",
-  isoAlpha2: "AQ"
-},
-{
-  name: "Ghana",
-  flag: "🇬🇭",
-  aliases: ["Ghana", "Republic of Ghana"],
-  isoAlpha3: "GHA",
-  isoAlpha2: "GH"
-},
-{
-  name: "Gibraltar",
-  flag: "🇬🇮",
-  aliases: ["Gibraltar"],
-  isoAlpha3: "GIB",
-  isoAlpha2: "GI"
-},
-{
-  name: "Greece",
-  flag: "🇬🇷",
-  aliases: ["Grèce", "Hellas", "Ελλάδα"],
-  isoAlpha3: "GRC",
-  isoAlpha2: "GR"
-},
-{
-  name: "Grenada",
-  flag: "🇬🇩",
-  aliases: ["Grenade", "Grenada"],
-  isoAlpha3: "GRD",
-  isoAlpha2: "GD"
-},
-{
-  name: "Greenland",
-  flag: "🇬🇱",
-  aliases: ["Groenland", "Kalaallit Nunaat"],
-  isoAlpha3: "GRL",
-  isoAlpha2: "GL"
-},
-{
-  name: "Guadeloupe",
-  flag: "🇬🇵",
-  aliases: ["Guadeloupe"],
-  isoAlpha3: "GLP",
-  isoAlpha2: "GP"
-},
-{
-  name: "Guam",
-  flag: "🇬🇺",
-  aliases: ["Guam"],
-  isoAlpha3: "GUM",
-  isoAlpha2: "GU"
-},
-{
-  name: "Guatemala",
-  flag: "🇬🇹",
-  aliases: ["Guatemala", "République du Guatemala"],
-  isoAlpha3: "GTM",
-  isoAlpha2: "GT"
-},
-{
-  name: "Guinea",
-  flag: "🇬🇳",
-  aliases: ["Guinée", "Guinea-Conakry"],
-  isoAlpha3: "GIN",
-  isoAlpha2: "GN"
-},
-{
-  name: "Guinea-Bissau",
-  flag: "🇬🇼",
-  aliases: ["Guinée-Bissau", "Guiné Bissau"],
-  isoAlpha3: "GNB",
-  isoAlpha2: "GW"
-},
-{
-  name: "Equatorial Guinea",
-  flag: "🇬🇶",
-  aliases: ["Guinée équatoriale", "Guinea Ecuatorial", "Guinea-Equatoriale"],
-  isoAlpha3: "GNQ",
-  isoAlpha2: "GQ"
-},
-{
-  name: "Guyana",
-  flag: "🇬🇾",
-  aliases: ["Guyana", "République coopérative du Guyana"],
-  isoAlpha3: "GUY",
-  isoAlpha2: "GY"
-},
-{
-  name: "French Guiana",
-  flag: "🇬🇫",
-  aliases: ["Guyane française", "French Guiana"],
-  isoAlpha3: "GUF",
-  isoAlpha2: "GF"
-},
-{
-  name: "Federated States of Micronesia",
-  flag: "🇫🇲",
-  aliases: ["États fédérés de Micronésie", "Micronesia"],
-  isoAlpha3: "FSM",
-  isoAlpha2: "FM"
-},
-{
-  name: "Haiti",
-  flag: "🇭🇹",
-  aliases: ["Haïti", "Republic of Haiti", "Ayiti"],
-  isoAlpha3: "HTI",
-  isoAlpha2: "HT"
-},
+    name: "Morocco",
+    flag: "🇲🇦",
+    aliases: ["Maroc", "Marocaine", "Al-Maghrib", "Marruecos", "المغرب"],
+    isoAlpha3: "MAR",
+    isoAlpha2: "MA"
+  },
+  {
+    name: "France",
+    flag: "🇫🇷",
+    aliases: ["République française", "French Republic", "Francia","Francaise"],
+    isoAlpha3: "FRA",
+    isoAlpha2: "FR"
+  },
+  {
+    name: "Canada",
+    flag: "🇨🇦",
+    aliases: ["Kanata", "CA", "CAN"],
+    isoAlpha3: "CAN",
+    isoAlpha2: "CA"
+  },
+  {
+    name: "Germany",
+    flag: "🇩🇪",
+    aliases: ["Deutschland", "Allemagne", "Alemania","DEUTSCHE","DEUTSCH"],
+    isoAlpha3: "DEU",
+    isoAlpha2: "DE"
+  },
+  {
+    name: "United States",
+    flag: "🇺🇸",
+    aliases: ["USA", "America", "États-Unis", "Estados Unidos"],
+    isoAlpha3: "USA",
+    isoAlpha2: "US"
+  },
+  {
+    name: "Afghanistan",
+    flag: "🇦🇫",
+    aliases: ["Afganistán", "Afganistan", "افغانستان"],
+    isoAlpha3: "AFG",
+    isoAlpha2: "AF"
+  },
+  {
+    name: "Albania",
+    flag: "🇦🇱",
+    aliases: ["Shqipëri", "Albanie", "Albania"],
+    isoAlpha3: "ALB",
+    isoAlpha2: "AL"
+  },
+  {
+    name: "Brazil",
+    flag: "🇧🇷",
+    aliases: ["Brasil", "Brésil", "ブラジル", "BRASILEIRO","Brasileira"],
+    isoAlpha3: "BRA",
+    isoAlpha2: "BR"
+  },
+  {
+    name: "Algeria",
+    flag: "🇩🇿",
+    aliases: ["Algérie", "Dzayer", "الجزائر"],
+    isoAlpha3: "DZA",
+    isoAlpha2: "DZ"
+  },
+  {
+    name: "Tunisia",
+    flag: "🇹🇳",
+    aliases: ["Tunisie", "Tunes", "تونس"],
+    isoAlpha3: "TUN",
+    isoAlpha2: "TN"
+  },
+  {
+    name: "China",
+    flag: "🇨🇳",
+    aliases: ["Zhongguo", "Chine", "中国","CHINESE"],
+    isoAlpha3: "CHN",
+    isoAlpha2: "CN"
+  },
+  {
+    name: "United Arab Emirates",
+    flag: "🇦🇪",
+    aliases: ["UAE", "Emirats Arabes Unis", "الإمارات"],
+    isoAlpha3: "ARE",
+    isoAlpha2: "AE"
+  },
+  {
+    name: "South Africa",
+    flag: "🇿🇦",
+    aliases: ["Afrique du Sud", "Sudáfrica", "Suid-Afrika", "جنوب أفريقيا"],
+    isoAlpha3: "ZAF",
+    isoAlpha2: "ZA"
+  },
+  {
+    name: "Japan",
+    flag: "🇯🇵",
+    aliases: ["Japon", "日本", "Nihon", "Nippon"],
+    isoAlpha3: "JPN",
+    isoAlpha2: "JP"
+  },
+  {
+    name: "Andorra",
+    flag: "🇦🇩",
+    aliases: ["Andorre", "Principat d'Andorra"],
+    isoAlpha3: "AND",
+    isoAlpha2: "AD"
+  },
+  {
+    name: "Angola",
+    flag: "🇦🇴",
+    aliases: ["Angola", "República de Angola"],
+    isoAlpha3: "AGO",
+    isoAlpha2: "AO"
+  },
+  {
+    name: "Antigua and Barbuda",
+    flag: "🇦🇬",
+    aliases: ["Antigua et Barbuda", "Antigua y Barbuda"],
+    isoAlpha3: "ATG",
+    isoAlpha2: "AG"
+  },
+  {
+    name: "Saudi Arabia",
+    flag: "🇸🇦",
+    aliases: ["Arabie Saoudite", "KSA", "المملكة العربية السعودية"],
+    isoAlpha3: "SAU",
+    isoAlpha2: "SA"
+  },
+  {
+    name: "Argentina",
+    flag: "🇦🇷",
+    aliases: ["Argentine", "República Argentina"],
+    isoAlpha3: "ARG",
+    isoAlpha2: "AR"
+  },
+  {
+    name: "Australia",
+    flag: "🇦🇺",
+    aliases: ["Australie", "Commonwealth of Australia"],
+    isoAlpha3: "AUS",
+    isoAlpha2: "AU"
+  },
+  {
+    name: "Austria",
+    flag: "🇦🇹",
+    aliases: ["Autriche", "Österreich"],
+    isoAlpha3: "AUT",
+    isoAlpha2: "AT"
+  },
+  {
+    name: "Azerbaijan",
+    flag: "🇦🇿",
+    aliases: ["Azerbaïdjan", "Azərbaycan", "آذربایجان"],
+    isoAlpha3: "AZE",
+    isoAlpha2: "AZ"
+  },
+  {
+    name: "Bahamas",
+    flag: "🇧🇸",
+    aliases: ["Bahamas", "Commonwealth of the Bahamas"],
+    isoAlpha3: "BHS",
+    isoAlpha2: "BS"
+  },
+  {
+    name: "Bahrain",
+    flag: "🇧🇭",
+    aliases: ["Bahreïn", "البحرين", "Bahréin"],
+    isoAlpha3: "BHR",
+    isoAlpha2: "BH"
+  },
+  {
+    name: "Bangladesh",
+    flag: "🇧🇩",
+    aliases: ["Bangladesh", "বাংলাদেশ"],
+    isoAlpha3: "BGD",
+    isoAlpha2: "BD"
+  },
+  {
+    name: "Barbados",
+    flag: "🇧🇧",
+    aliases: ["Barbade"],
+    isoAlpha3: "BRB",
+    isoAlpha2: "BB"
+  },
+  {
+    name: "Belgium",
+    flag: "🇧🇪",
+    aliases: ["Belgique", "België", "Belgien"],
+    isoAlpha3: "BEL",
+    isoAlpha2: "BE"
+  },
+  {
+    name: "Belize",
+    flag: "🇧🇿",
+    aliases: ["Belize"],
+    isoAlpha3: "BLZ",
+    isoAlpha2: "BZ"
+  },
+  {
+    name: "Benin",
+    flag: "🇧🇯",
+    aliases: ["Bénin", "Republic of Benin"],
+    isoAlpha3: "BEN",
+    isoAlpha2: "BJ"
+  },
+  {
+    name: "Bhutan",
+    flag: "🇧🇹",
+    aliases: ["Bhoutan", "འབྲུག་ཡུལ་"],
+    isoAlpha3: "BTN",
+    isoAlpha2: "BT"
+  },
+  {
+    name: "Belarus",
+    flag: "🇧🇾",
+    aliases: ["Biélorussie", "Беларусь"],
+    isoAlpha3: "BLR",
+    isoAlpha2: "BY"
+  },
+  {
+    name: "Myanmar",
+    flag: "🇲🇲",
+    aliases: ["Birmanie", "Myanmar", "မြန်မာ"],
+    isoAlpha3: "MMR",
+    isoAlpha2: "MM"
+  },
+  {
+    name: "Bolivia",
+    flag: "🇧🇴",
+    aliases: ["Bolivie", "Estado Plurinacional de Bolivia"],
+    isoAlpha3: "BOL",
+    isoAlpha2: "BO"
+  },
+  {
+    name: "Bosnia and Herzegovina",
+    flag: "🇧🇦",
+    aliases: ["Bosnie-Herzégovine", "Bosna i Hercegovina"],
+    isoAlpha3: "BIH",
+    isoAlpha2: "BA"
+  },
+  {
+    name: "Botswana",
+    flag: "🇧🇼",
+    aliases: ["Botswana", "Lefatshe la Botswana"],
+    isoAlpha3: "BWA",
+    isoAlpha2: "BW"
+  },
+  {
+    name: "Brunei",
+    flag: "🇧🇳",
+    aliases: ["Brunei Darussalam", "بروناي"],
+    isoAlpha3: "BRN",
+    isoAlpha2: "BN"
+  },
+  {
+    name: "Bulgaria",
+    flag: "🇧🇬",
+    aliases: ["Bulgarie", "България"],
+    isoAlpha3: "BGR",
+    isoAlpha2: "BG"
+  },
+  {
+    name: "Burkina Faso",
+    flag: "🇧🇫",
+    aliases: ["Burkina", "Burkina Faso"],
+    isoAlpha3: "BFA",
+    isoAlpha2: "BF"
+  },
+  {
+    name: "Burundi",
+    flag: "🇧🇮",
+    aliases: ["Burundi", "Republika y’Uburundi"],
+    isoAlpha3: "BDI",
+    isoAlpha2: "BI"
+  },
+  {
+    name: "Cambodia",
+    flag: "🇰🇭",
+    aliases: ["Cambodge", "កម្ពុជា", "Kampuchea"],
+    isoAlpha3: "KHM",
+    isoAlpha2: "KH"
+  },
+  {
+    name: "Cameroon",
+    flag: "🇨🇲",
+    aliases: ["Cameroun", "Camerún"],
+    isoAlpha3: "CMR",
+    isoAlpha2: "CM"
+  },
+  {
+    name: "Cape Verde",
+    flag: "🇨🇻",
+    aliases: ["Cap-Vert", "Cabo Verde"],
+    isoAlpha3: "CPV",
+    isoAlpha2: "CV"
+  },
+  {
+    name: "Chile",
+    flag: "🇨🇱",
+    aliases: ["Chili", "Chile", "República de Chile"],
+    isoAlpha3: "CHL",
+    isoAlpha2: "CL"
+  },
+  {
+    name: "Cyprus",
+    flag: "🇨🇾",
+    aliases: ["Chypre", "Republic of Cyprus", "Κύπρος", "Kıbrıs"],
+    isoAlpha3: "CYP",
+    isoAlpha2: "CY"
+  },
+  {
+    name: "Colombia",
+    flag: "🇨🇴",
+    aliases: ["Colombie", "Colombia", "República de Colombia"],
+    isoAlpha3: "COL",
+    isoAlpha2: "CO"
+  },
+  {
+    name: "Comoros",
+    flag: "🇰🇲",
+    aliases: ["Comores", "الاتحاد القمري", "Komori"],
+    isoAlpha3: "COM",
+    isoAlpha2: "KM"
+  },
+  {
+    name: "North Korea",
+    flag: "🇰🇵",
+    aliases: ["Corée du Nord", "DPRK", "조선민주주의인민공화국"],
+    isoAlpha3: "PRK",
+    isoAlpha2: "KP"
+  },
+  {
+    name: "South Corsica",
+    flag: "🏴",
+    aliases: ["Corse-du-Sud", "Corsica du Sud", "Ajaccio"],
+    isoAlpha3: "FR-S",
+    isoAlpha2: "FR" // région française, donc FR
+  },
+  {
+    name: "Costa Rica",
+    flag: "🇨🇷",
+    aliases: ["Costa Rica", "République du Costa Rica"],
+    isoAlpha3: "CRI",
+    isoAlpha2: "CR"
+  },
+  {
+    name: "Ivory Coast",
+    flag: "🇨🇮",
+    aliases: ["Côte d'Ivoire", "Costa de Marfil", "Ivory Coast"],
+    isoAlpha3: "CIV",
+    isoAlpha2: "CI"
+  },
+  {
+    name: "Croatia",
+    flag: "🇭🇷",
+    aliases: ["Croatie", "Hrvatska"],
+    isoAlpha3: "HRV",
+    isoAlpha2: "HR"
+  },
+  {
+    name: "Cuba",
+    flag: "🇨🇺",
+    aliases: ["Cuba", "Republic of Cuba", "República de Cuba"],
+    isoAlpha3: "CUB",
+    isoAlpha2: "CU"
+  },
+  {
+    name: "Denmark",
+    flag: "🇩🇰",
+    aliases: ["Danemark", "Danmark", "Kongeriget Danmark"],
+    isoAlpha3: "DNK",
+    isoAlpha2: "DK"
+  },
+  {
+    name: "Djibouti",
+    flag: "🇩🇯",
+    aliases: ["Djibouti", "جيبوتي"],
+    isoAlpha3: "DJI",
+    isoAlpha2: "DJ"
+  },
+  {
+    name: "Dominica",
+    flag: "🇩🇲",
+    aliases: ["Dominique", "Commonwealth of Dominica"],
+    isoAlpha3: "DMA",
+    isoAlpha2: "DM"
+  },
+  {
+    name: "Egypt",
+    flag: "🇪🇬",
+    aliases: ["Égypte", "Egypt", "مصر"],
+    isoAlpha3: "EGY",
+    isoAlpha2: "EG"
+  },
+  {
+    name: "Ecuador",
+    flag: "🇪🇨",
+    aliases: ["Équateur", "Ecuador", "República del Ecuador"],
+    isoAlpha3: "ECU",
+    isoAlpha2: "EC"
+  },
+  {
+    name: "Eritrea",
+    flag: "🇪🇷",
+    aliases: ["Érythrée", "Eritrea", "إريتريا"],
+    isoAlpha3: "ERI",
+    isoAlpha2: "ER"
+  },
+  {
+    name: "Estonia",
+    flag: "🇪🇪",
+    aliases: ["Estonie", "Eesti"],
+    isoAlpha3: "EST",
+    isoAlpha2: "EE"
+  },
+  {
+    name: "Ethiopia",
+    flag: "🇪🇹",
+    aliases: ["Éthiopie", "Ethiopia", "ኢትዮጵያ"],
+    isoAlpha3: "ETH",
+    isoAlpha2: "ET"
+  },
+  {
+    name: "Fiji",
+    flag: "🇫🇯",
+    aliases: ["Fidji", "Republic of Fiji"],
+    isoAlpha3: "FJI",
+    isoAlpha2: "FJ"
+  },
+  {
+    name: "Finland",
+    flag: "🇫🇮",
+    aliases: ["Finlande", "Suomi"],
+    isoAlpha3: "FIN",
+    isoAlpha2: "FI"
+  },
+  {
+    name: "Gabon",
+    flag: "🇬🇦",
+    aliases: ["Gabon", "République gabonaise"],
+    isoAlpha3: "GAB",
+    isoAlpha2: "GA"
+  },
+  {
+    name: "Gambia",
+    flag: "🇬🇲",
+    aliases: ["Gambie", "The Gambia"],
+    isoAlpha3: "GMB",
+    isoAlpha2: "GM"
+  },
+  {
+    name: "Georgia",
+    flag: "🇬🇪",
+    aliases: ["Géorgie", "საქართველო"],
+    isoAlpha3: "GEO",
+    isoAlpha2: "GE"
+  },
+  {
+    name: "Antarctica",
+    flag: "🏔️",
+    aliases: ["Antarctique", "Antarctica"],
+    isoAlpha3: "ATA",
+    isoAlpha2: "AQ"
+  },
+  {
+    name: "Ghana",
+    flag: "🇬🇭",
+    aliases: ["Ghana", "Republic of Ghana"],
+    isoAlpha3: "GHA",
+    isoAlpha2: "GH"
+  },
+  {
+    name: "Gibraltar",
+    flag: "🇬🇮",
+    aliases: ["Gibraltar"],
+    isoAlpha3: "GIB",
+    isoAlpha2: "GI"
+  },
+  {
+    name: "Greece",
+    flag: "🇬🇷",
+    aliases: ["Grèce", "Hellas", "Ελλάδα"],
+    isoAlpha3: "GRC",
+    isoAlpha2: "GR"
+  },
+  {
+    name: "Grenada",
+    flag: "🇬🇩",
+    aliases: ["Grenade", "Grenada"],
+    isoAlpha3: "GRD",
+    isoAlpha2: "GD"
+  },
+  {
+    name: "Greenland",
+    flag: "🇬🇱",
+    aliases: ["Groenland", "Kalaallit Nunaat"],
+    isoAlpha3: "GRL",
+    isoAlpha2: "GL"
+  },
+  {
+    name: "Guadeloupe",
+    flag: "🇬🇵",
+    aliases: ["Guadeloupe"],
+    isoAlpha3: "GLP",
+    isoAlpha2: "GP"
+  },
+  {
+    name: "Guam",
+    flag: "🇬🇺",
+    aliases: ["Guam"],
+    isoAlpha3: "GUM",
+    isoAlpha2: "GU"
+  },
+  {
+    name: "Guatemala",
+    flag: "🇬🇹",
+    aliases: ["Guatemala", "République du Guatemala"],
+    isoAlpha3: "GTM",
+    isoAlpha2: "GT"
+  },
+  {
+    name: "Guinea",
+    flag: "🇬🇳",
+    aliases: ["Guinée", "Guinea-Conakry"],
+    isoAlpha3: "GIN",
+    isoAlpha2: "GN"
+  },
+  {
+    name: "Guinea-Bissau",
+    flag: "🇬🇼",
+    aliases: ["Guinée-Bissau", "Guiné Bissau"],
+    isoAlpha3: "GNB",
+    isoAlpha2: "GW"
+  },
+  {
+    name: "Equatorial Guinea",
+    flag: "🇬🇶",
+    aliases: ["Guinée équatoriale", "Guinea Ecuatorial", "Guinea-Equatoriale"],
+    isoAlpha3: "GNQ",
+    isoAlpha2: "GQ"
+  },
+  {
+    name: "Guyana",
+    flag: "🇬🇾",
+    aliases: ["Guyana", "République coopérative du Guyana"],
+    isoAlpha3: "GUY",
+    isoAlpha2: "GY"
+  },
+  {
+    name: "French Guiana",
+    flag: "🇬🇫",
+    aliases: ["Guyane française", "French Guiana"],
+    isoAlpha3: "GUF",
+    isoAlpha2: "GF"
+  },
+  {
+    name: "Federated States of Micronesia",
+    flag: "🇫🇲",
+    aliases: ["États fédérés de Micronésie", "Micronesia"],
+    isoAlpha3: "FSM",
+    isoAlpha2: "FM"
+  },
+  {
+    name: "Haiti",
+    flag: "🇭🇹",
+    aliases: ["Haïti", "Republic of Haiti", "Ayiti"],
+    isoAlpha3: "HTI",
+    isoAlpha2: "HT"
+  },
   {
     name: "Honduras",
     flag: "🇭🇳",
@@ -709,7 +709,7 @@ export const countryData = [
   {
     name: "Italy",
     flag: "🇮🇹",
-    aliases: ["Italie", "Italia", "Italien"],
+    aliases: ["Italie", "Italia", "Italien","Italiana","Italiano"],
     isoAlpha3: "ITA",
     isoAlpha2: "IT"
   },
@@ -790,7 +790,7 @@ export const countryData = [
     isoAlpha3: "LSO",
     isoAlpha2: "LS"
   },
-{
+  {
     name: "Latvia",
     flag: "🇱🇻",
     aliases: ["Lettonie", "Latvija"],
@@ -909,7 +909,7 @@ export const countryData = [
     isoAlpha3: "MUS",
     isoAlpha2: "MU"
   },
-{
+  {
     name: "Mayotte",
     flag: "🇾🇹",
     aliases: ["Mayotte"],
@@ -1003,7 +1003,7 @@ export const countryData = [
   {
     name: "Nigeria",
     flag: "🇳🇬",
-    aliases: ["Nigéria", "Nigeria", "Federal Republic of Nigeria"],
+    aliases: ["Nigéria", "Nigeria", "Federal Republic of Nigeria","NIGERIAN"],
     isoAlpha3: "NGA",
     isoAlpha2: "NG"
   },
@@ -1056,12 +1056,12 @@ export const countryData = [
     isoAlpha3: "UZB",
     isoAlpha2: "UZ"
   },
-{
+  {
     "name": "Pakistan",
     "flag": "🇵🇰",
     "aliases": [
       "Pakistan",
-      "پاکستان"
+      "پاکستان","PAKISTANI"
     ],
     "isoAlpha3": "PAK",
     "isoAlpha2": "PK"
@@ -1139,7 +1139,7 @@ export const countryData = [
     "isoAlpha3": "PER",
     "isoAlpha2": "PE"
   },
- {
+  {
     "name": "Philippines",
     "flag": "🇵🇭",
     "aliases": [
@@ -1184,7 +1184,7 @@ export const countryData = [
     "name": "Portugal",
     "flag": "🇵🇹",
     "aliases": [
-      "Portugal","PORTUGUESA",
+      "Portugal", "PORTUGUESA",
       "République portugaise"
     ],
     "isoAlpha3": "PRT",
@@ -1268,7 +1268,8 @@ export const countryData = [
     "flag": "🇷🇴",
     "aliases": [
       "Roumanie",
-      "România"
+      "România",
+      "Romanǎ/ROU"
     ],
     "isoAlpha3": "ROU",
     "isoAlpha2": "RO"
@@ -1306,151 +1307,151 @@ export const countryData = [
     "isoAlpha3": "RWA",
     "isoAlpha2": "RW"
   },
-{
-  name: "Saint Kitts and Nevis",
-  flag: "🇰🇳",
-  aliases: ["Saint-Christophe-et-Niévès", "St. Kitts and Nevis"],
-  isoAlpha3: "KNA"
-},
-{
-  name: "Saint Lucia",
-  flag: "🇱🇨",
-  aliases: ["Sainte-Lucie", "St. Lucia"],
-  isoAlpha3: "LCA"
-},
-{
-  name: "Saint Vincent and the Grenadines",
-  flag: "🇻🇨",
-  aliases: ["Saint-Vincent-et-les-Grenadines", "St. Vincent and the Grenadines"],
-  isoAlpha3: "VCT"
-},
-{
-  name: "Samoa",
-  flag: "🇼🇸",
-  aliases: ["Samoa", "État indépendant des Samoa"],
-  isoAlpha3: "WSM"
-},
-{
-  name: "San Marino",
-  flag: "🇸🇲",
-  aliases: ["Saint-Marin", "San Marino"],
-  isoAlpha3: "SMR"
-},
-{
-  name: "São Tomé and Príncipe",
-  flag: "🇸🇹",
-  aliases: ["Sao Tomé-et-Principe", "São Tomé and Príncipe"],
-  isoAlpha3: "STP"
-},
-{
-  name: "Saudi Arabia",
-  flag: "🇸🇦",
-  aliases: ["Arabie saoudite", "Saudi Arabia", "المملكة العربية السعودية"],
-  isoAlpha3: "SAU"
-},
-{
-  name: "Senegal",
-  flag: "🇸🇳",
-  aliases: ["Sénégal", "Senegal"],
-  isoAlpha3: "SEN"
-},
-{
-  name: "Serbia",
-  flag: "🇷🇸",
-  aliases: ["Serbie", "Serbia"],
-  isoAlpha3: "SRB"
-},
-{
-  name: "Seychelles",
-  flag: "🇸🇨",
-  aliases: ["Seychelles"],
-  isoAlpha3: "SYC"
-},
-{
-  name: "Sierra Leone",
-  flag: "🇸🇱",
-  aliases: ["Sierra Leone"],
-  isoAlpha3: "SLE"
-},
-{
-  name: "Singapore",
-  flag: "🇸🇬",
-  aliases: ["Singapour", "Singapore"],
-  isoAlpha3: "SGP"
-},
-{
-  name: "Slovakia",
-  flag: "🇸🇰",
-  aliases: ["Slovaquie", "Slovakia"],
-  isoAlpha3: "SVK"
-},
-{
-  name: "Slovenia",
-  flag: "🇸🇮",
-  aliases: ["Slovénie", "Slovenia"],
-  isoAlpha3: "SVN"
-},
-{
-  name: "Solomon Islands",
-  flag: "🇸🇧",
-  aliases: ["Îles Salomon", "Solomon Islands"],
-  isoAlpha3: "SLB"
-},
-{
-  name: "Somalia",
-  flag: "🇸🇴",
-  aliases: ["Somalie", "Somalia"],
-  isoAlpha3: "SOM"
-},
-{
-  name: "South Sudan",
-  flag: "🇸🇸",
-  aliases: ["Soudan du Sud", "South Sudan"],
-  isoAlpha3: "SSD"
-},
-{
-  name: "Spain",
-  flag: "🇪🇸",
-  aliases: ["Espagne", "Spain"],
-  isoAlpha3: "ESP"
-},
-{
-  name: "Sri Lanka",
-  flag: "🇱🇰",
-  aliases: ["Sri Lanka", "Ceylan", "ශ්‍රී ලංකාව"],
-  isoAlpha3: "LKA"
-},
-{
-  name: "Sudan",
-  flag: "🇸🇩",
-  aliases: ["Soudan", "Sudan"],
-  isoAlpha3: "SDN"
-},
-{
-  name: "Suriname",
-  flag: "🇸🇷",
-  aliases: ["Suriname"],
-  isoAlpha3: "SUR"
-},
-{
-  name: "Sweden",
-  flag: "🇸🇪",
-  aliases: ["Suède", "Sweden"],
-  isoAlpha3: "SWE"
-},
-{
-  name: "Switzerland",
-  flag: "🇨🇭",
-  aliases: ["Suisse", "Switzerland"],
-  isoAlpha3: "CHE"
-},
-{
-  name: "Syrian Arab Republic",
-  flag: "🇸🇾",
-  aliases: ["Syrie", "Syrian Arab Republic", "سوريا"],
-  isoAlpha3: "SYR"
-},
-{
+  {
+    name: "Saint Kitts and Nevis",
+    flag: "🇰🇳",
+    aliases: ["Saint-Christophe-et-Niévès", "St. Kitts and Nevis"],
+    isoAlpha3: "KNA"
+  },
+  {
+    name: "Saint Lucia",
+    flag: "🇱🇨",
+    aliases: ["Sainte-Lucie", "St. Lucia"],
+    isoAlpha3: "LCA"
+  },
+  {
+    name: "Saint Vincent and the Grenadines",
+    flag: "🇻🇨",
+    aliases: ["Saint-Vincent-et-les-Grenadines", "St. Vincent and the Grenadines"],
+    isoAlpha3: "VCT"
+  },
+  {
+    name: "Samoa",
+    flag: "🇼🇸",
+    aliases: ["Samoa", "État indépendant des Samoa"],
+    isoAlpha3: "WSM"
+  },
+  {
+    name: "San Marino",
+    flag: "🇸🇲",
+    aliases: ["Saint-Marin", "San Marino"],
+    isoAlpha3: "SMR"
+  },
+  {
+    name: "São Tomé and Príncipe",
+    flag: "🇸🇹",
+    aliases: ["Sao Tomé-et-Principe", "São Tomé and Príncipe"],
+    isoAlpha3: "STP"
+  },
+  {
+    name: "Saudi Arabia",
+    flag: "🇸🇦",
+    aliases: ["Arabie saoudite", "Saudi Arabia", "المملكة العربية السعودية"],
+    isoAlpha3: "SAU"
+  },
+  {
+    name: "Senegal",
+    flag: "🇸🇳",
+    aliases: ["Sénégal", "Senegal"],
+    isoAlpha3: "SEN"
+  },
+  {
+    name: "Serbia",
+    flag: "🇷🇸",
+    aliases: ["Serbie", "Serbia"],
+    isoAlpha3: "SRB"
+  },
+  {
+    name: "Seychelles",
+    flag: "🇸🇨",
+    aliases: ["Seychelles"],
+    isoAlpha3: "SYC"
+  },
+  {
+    name: "Sierra Leone",
+    flag: "🇸🇱",
+    aliases: ["Sierra Leone"],
+    isoAlpha3: "SLE"
+  },
+  {
+    name: "Singapore",
+    flag: "🇸🇬",
+    aliases: ["Singapour", "Singapore"],
+    isoAlpha3: "SGP"
+  },
+  {
+    name: "Slovakia",
+    flag: "🇸🇰",
+    aliases: ["Slovaquie", "Slovakia"],
+    isoAlpha3: "SVK"
+  },
+  {
+    name: "Slovenia",
+    flag: "🇸🇮",
+    aliases: ["Slovénie", "Slovenia"],
+    isoAlpha3: "SVN"
+  },
+  {
+    name: "Solomon Islands",
+    flag: "🇸🇧",
+    aliases: ["Îles Salomon", "Solomon Islands"],
+    isoAlpha3: "SLB"
+  },
+  {
+    name: "Somalia",
+    flag: "🇸🇴",
+    aliases: ["Somalie", "Somalia"],
+    isoAlpha3: "SOM"
+  },
+  {
+    name: "South Sudan",
+    flag: "🇸🇸",
+    aliases: ["Soudan du Sud", "South Sudan"],
+    isoAlpha3: "SSD"
+  },
+  {
+    name: "Spain",
+    flag: "🇪🇸",
+    aliases: ["Espagne", "Spain"],
+    isoAlpha3: "ESP"
+  },
+  {
+    name: "Sri Lanka",
+    flag: "🇱🇰",
+    aliases: ["Sri Lanka", "Ceylan", "ශ්‍රී ලංකාව"],
+    isoAlpha3: "LKA"
+  },
+  {
+    name: "Sudan",
+    flag: "🇸🇩",
+    aliases: ["Soudan", "Sudan"],
+    isoAlpha3: "SDN"
+  },
+  {
+    name: "Suriname",
+    flag: "🇸🇷",
+    aliases: ["Suriname"],
+    isoAlpha3: "SUR"
+  },
+  {
+    name: "Sweden",
+    flag: "🇸🇪",
+    aliases: ["Suède", "Sweden","SWEDISH"],
+    isoAlpha3: "SWE"
+  },
+  {
+    name: "Switzerland",
+    flag: "🇨🇭",
+    aliases: ["Suisse", "Switzerland"],
+    isoAlpha3: "CHE"
+  },
+  {
+    name: "Syrian Arab Republic",
+    flag: "🇸🇾",
+    aliases: ["Syrie", "Syrian Arab Republic", "سوريا"],
+    isoAlpha3: "SYR"
+  },
+  {
     "name": "Saint Kitts and Nevis",
     "flag": "🇰🇳",
     "aliases": [
@@ -1841,7 +1842,7 @@ export const countryData = [
     "isoAlpha3": "ARE",
     "isoAlpha2": "AE"
   },
-{
+  {
     "name": "United Kingdom",
     "flag": "🇬🇧",
     "aliases": [

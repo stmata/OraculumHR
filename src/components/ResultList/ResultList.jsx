@@ -33,7 +33,7 @@ const ResultList = () => {
         }
     }, [filterMode, extractedData, setSelectedCards]);
 
-    const getUniqueId = (item) => {
+    const getUniqueId = (item, index) => {
         return (
             item.id_number ||
             item.passport_number ||
@@ -41,10 +41,8 @@ const ResultList = () => {
             item.diploma_id ||
             item.document_id ||
             (item.code_iban && item.code_bic && `${item.code_iban}_${item.code_bic}`) ||
-
-            (item.full_name && item.date_of_birth && `${item.full_name}_${item.date_of_birth}`) || null
-
-
+            (item.full_name && item.date_of_birth && `${item.full_name}_${item.date_of_birth}`) ||
+            `fallback_${index}`
         );
     };
 
@@ -64,7 +62,7 @@ const ResultList = () => {
     const hasCountry = selectedCountry?.toLowerCase() !== "anywhere";
 
     const uniqueData = Array.from(
-        new Map(extractedData.map(item => [getUniqueId(item), item])).values()
+        new Map(extractedData.map((item, i) => [getUniqueId(item, i), item])).values()
     );
 
     const filteredData = uniqueData.filter((item) => {

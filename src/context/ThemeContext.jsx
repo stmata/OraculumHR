@@ -11,8 +11,8 @@ export const ThemeProvider = ({ children }) => {
   });
 
   useEffect(() => {
-  document.body.classList.toggle("dark", theme === DARK_THEME);
-}, [theme]);
+    document.body.classList.toggle("dark", theme === DARK_THEME);
+  }, [theme]);
 
   const toggleTheme = () => {
     setTheme((prevTheme) =>

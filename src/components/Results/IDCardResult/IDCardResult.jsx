@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import styles from "./PassportResult.module.css";
+import styles from "./IDCardResult.module.css";
 import { countryData } from "../../../constants/countryFlags";
 import { useSession } from "../../../context/SessionContext";
 import { ThemeContext } from "../../../context/ThemeContext";
 import { translations } from "../../../constants/translations";
 
-const PassportResult = ({ data }) => {
+const IDCardResult = ({ data }) => {
     const {
+        docType,
         selectedCards,
         setSelectedCards,
         filterMode,
@@ -14,7 +15,7 @@ const PassportResult = ({ data }) => {
         selectedCountry,
         setDetectedCountries,
         uploadedFiles,
-        setExtractedData
+        setExtractedData,
     } = useSession();
 
     const { theme } = useContext(ThemeContext);
@@ -26,43 +27,47 @@ const PassportResult = ({ data }) => {
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState(data);
 
+    if (docType !== "id_card") return null;
+
+    const withFallback = (value) => {
+        const raw = value?.trim().toLowerCase();
+        if (!raw || raw === "not provided" || raw === "non fourni") {
+            return t.notProvided;
+        }
+        return value;
+    };
+
     const {
         nationality,
         firstname,
         lastname,
-        passport_number,
-        date_of_birth,
+        document_number,
+        address,
         expiration_date,
+        date_of_birth,
         place_of_birth,
         _sourceFileIndex
     } = data;
 
-    const id = passport_number;
-    const isSelected = filterMode === "All" || selectedCards.includes(id);
-
-    const withFallback = (value) => {
-        if (typeof value !== "string") return t.notProvided;
-        const raw = value.trim().toLowerCase();
-        return (!raw || raw === "not provided" || raw === "non fourni") ? t.notProvided : value;
-    };
+    const sourceFile = uploadedFiles?.[_sourceFileIndex];
+    const fileUrl = sourceFile ? URL.createObjectURL(sourceFile) : null;
+    const isSelected = filterMode === "All" || selectedCards.includes(document_number);
 
     const toggleSelect = () => {
-        const alreadySelected = selectedCards.includes(id);
-
+        const alreadySelected = selectedCards.includes(document_number);
         if (filterMode === "Manually") {
             setSelectedCards((prev) =>
-                alreadySelected ? prev.filter((el) => el !== id) : [...new Set([...prev, id])]
+                alreadySelected
+                    ? prev.filter((id) => id !== document_number)
+                    : [...new Set([...prev, document_number])]
             );
             return;
         }
-
         if (alreadySelected) return;
-
         if (filterMode === "All") {
-            setSelectedCards((prev) => [...prev, id]);
+            setSelectedCards((prev) => [...prev, document_number]);
             return;
         }
-
         if (filterMode === "Search") {
             const term = searchTerm?.trim().toLowerCase();
             if (!term) return;
@@ -70,17 +75,16 @@ const PassportResult = ({ data }) => {
                 (val) => typeof val === "string" && val.toLowerCase().includes(term)
             );
             if (matches) {
-                setSelectedCards((prev) => [...prev, id]);
+                setSelectedCards((prev) => [...prev, document_number]);
             }
             return;
         }
-
         if (filterMode === "Country") {
             const selected = selectedCountry?.toLowerCase();
             const itemCountry = nationality?.toLowerCase();
             const match = selected === "anywhere" || itemCountry === selected;
             if (match) {
-                setSelectedCards((prev) => [...prev, id]);
+                setSelectedCards((prev) => [...prev, document_number]);
             }
         }
     };
@@ -91,7 +95,8 @@ const PassportResult = ({ data }) => {
             (c) =>
                 c.name.toLowerCase() === lowerCountry ||
                 c.isoAlpha3?.toLowerCase() === lowerCountry ||
-                (Array.isArray(c.aliases) && c.aliases.some((alias) => alias.toLowerCase() === lowerCountry))
+                (Array.isArray(c.aliases) &&
+                    c.aliases.some((alias) => alias.toLowerCase() === lowerCountry))
         );
     };
 
@@ -110,13 +115,13 @@ const PassportResult = ({ data }) => {
         setFormData(data);
     };
 
-    const handleChange = (key) => (e) => {
+    const handleChange = (key) => (e) =>
         setFormData((prev) => ({ ...prev, [key]: e.target.value }));
-    };
 
     const handleSave = () => {
+        const id = formData.document_number;
         setExtractedData((prev) =>
-            prev.map((d) => d.passport_number === formData.passport_number ? { ...formData } : d)
+            prev.map((d) => (d.document_number === id ? { ...formData } : d))
         );
         setEditMode(false);
     };
@@ -125,17 +130,6 @@ const PassportResult = ({ data }) => {
         setEditMode(false);
         setFormData(data);
     };
-
-    const sourceFile = uploadedFiles?.[_sourceFileIndex];
-    const fileUrl = sourceFile ? URL.createObjectURL(sourceFile) : null;
-
-    useEffect(() => {
-        return () => {
-            if (fileUrl) URL.revokeObjectURL(fileUrl);
-        };
-    }, [fileUrl]);
-
-
     const isFieldMissing = () => {
         const source = editMode ? formData : data;
 
@@ -143,10 +137,11 @@ const PassportResult = ({ data }) => {
             source.nationality,
             source.firstname,
             source.lastname,
-            source.passport_number,
-            source.date_of_birth,
+            source.document_number,
+            source.address,
             source.expiration_date,
-            source.place_of_birth,
+            source.date_of_birth,
+            source.place_of_birth
         ];
         return checks.some((val) => {
             if (!val) return true;
@@ -156,7 +151,6 @@ const PassportResult = ({ data }) => {
     };
 
     const hasWarning = isFieldMissing();
-
     return (
         <div className={styles.resultWrapper}>
             <div
@@ -164,8 +158,7 @@ const PassportResult = ({ data }) => {
                 tabIndex={0}
                 onClick={() => {
                     if (!editMode) toggleSelect();
-                }}
-                onDoubleClick={handleDoubleClick}
+                }} onDoubleClick={handleDoubleClick}
             >
                 {hasWarning && (
                     <div className={styles.customToastWarning}>
@@ -177,17 +170,21 @@ const PassportResult = ({ data }) => {
                 )}
                 <div className={styles.contentRow}>
                     <div className={styles.left}>
-
                         <div className={styles.flag}>{countryInfo?.flag || "🏳️"}</div>
+
                         <div className={styles.country}>
 
                             {editMode ? (
-                                <>  <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.country} :</div>
-
-                                    <input
-                                        value={formData.nationality}
-                                        onChange={handleChange("nationality")}
+                                <>
+                                    <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.country} :</div>
+                                    <div
                                         className={`${styles.editInputPays} ${isDark ? styles.darkEditInputPays : ""}`}
+                                        contentEditable
+                                        suppressContentEditableWarning
+                                        onBlur={(e) =>
+                                            setFormData(prev => ({ ...prev, nationality: e.target.innerText }))
+                                        }
+                                        dangerouslySetInnerHTML={{ __html: formData.nationality }}
                                     />
                                 </>
 
@@ -196,7 +193,6 @@ const PassportResult = ({ data }) => {
                             )}
                         </div>
                     </div>
-
                     <div className={styles.middle}>
                         <div className={styles.nameRow}>
                             <div className={styles.name}>
@@ -226,44 +222,25 @@ const PassportResult = ({ data }) => {
                                 ) : (
                                     `${withFallback(firstname)} — ${withFallback(lastname)}`
                                 )}
-
-                                {/* {editMode ? (
-                                    <div className={styles.inputGroup}>
-                                        <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.passport_type} :</div>
-                                        <div className={styles.greenBadge}>
+                                <span className={`${styles.idNumberWrapper} ${isDark ? styles.darkidNumberWrapper : ""}`}>
+                                    {editMode ? (
+                                        <div className={styles.inputGroup}>
+                                            <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.id_number} :</div>
                                             <input
-                                                value={formData.passport_type}
-                                                onChange={handleChange("passport_type")}
-                                                className={`${styles.type} ${isDark ? styles.darktype : ""}`}
-                                            />
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <div className={styles.greenBadge}>
-                                        {withFallback(passport_type)}
-                                    </div>
-                                )} */}
-
-                                {editMode ? (
-                                    <div className={styles.inputGroup}>
-                                        <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.id_number} :</div>
-                                        <div className={styles.idNumber}>
-                                            <input
-                                                value={formData.passport_number}
-                                                onChange={handleChange("passport_number")}
+                                                value={formData.document_number}
+                                                onChange={handleChange("document_number")}
                                                 className={`${styles.idNumberInput} ${isDark ? styles.darkIdNumber : ""}`}
                                             />
                                         </div>
-                                    </div>
-                                ) : (
-                                    <span className={`${styles.idNumber} ${isDark ? styles.darkIdNumber : ""}`}>
-                                        {withFallback(passport_number)}
-                                    </span>
-                                )}
 
+                                    ) : (
+                                        <span className={`${styles.idNumber} ${isDark ? styles.darkIdNumber : ""}`}>
+                                            {withFallback(document_number)}
+                                        </span>
+                                    )}
+                                </span>
                             </div>
                         </div>
-
                         <div className={styles.meta}>
                             {editMode ? (
                                 <>
@@ -283,15 +260,12 @@ const PassportResult = ({ data }) => {
                                             onChange={handleChange("date_of_birth")}
                                             className={`${styles.editInputLN} ${isDark ? styles.darkeditInputLN : ""}`}
                                         />
-                                    </div>
-                                </>
+                                    </div>   </>
                             ) : (
                                 `${withFallback(place_of_birth)} — ${withFallback(date_of_birth)}`
                             )}
                         </div>
-
                     </div>
-
                     <div className={styles.right}>
                         <div>
                             {editMode ? (
@@ -303,25 +277,24 @@ const PassportResult = ({ data }) => {
                                         className={`${styles.editInputDate} ${isDark ? styles.darkeditInputDate : ""}`}
                                     />
                                 </div>
-
                             ) : (
-                                withFallback(expiration_date)
+                                withFallback(expiration_date?.split("-")[0])
                             )}
                         </div>
-                        {/* <div>
+                        <div>
                             {editMode ? (
                                 <div className={styles.inputGroup}>
                                     <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.city} :</div>
                                     <input
-                                        value={formData.city}
-                                        onChange={handleChange("city")}
+                                        value={formData.address}
+                                        onChange={handleChange("address")}
                                         className={`${styles.editInputDate} ${isDark ? styles.darkeditInputDate : ""}`}
                                     />
                                 </div>
                             ) : (
-                                withFallback(city)
+                                withFallback(address)
                             )}
-                        </div> */}
+                        </div>
                         <button
                             className={styles.moreBtn}
                             onClick={(e) => {
@@ -333,25 +306,14 @@ const PassportResult = ({ data }) => {
                         </button>
                     </div>
                 </div>
-
                 {editMode && (
                     <div className={styles.actionButtons}>
-                        <button
-                            onClick={handleSave}
-                            className={`${styles.saveButton} ${isDark ? styles.darkSaveButton : ""}`}
-                        >
-                            Save
-                        </button>
-                        <button
-                            onClick={handleCancel}
-                            className={`${styles.saveButton} ${isDark ? styles.darkSaveButton : ""}`}
-                        >
-                            ✖ Cancel
-                        </button>
+                        <button onClick={handleSave} className={`${styles.saveButton} ${isDark ? styles.darkSaveButton : ""}`}
+                        >Save</button>
+                        <button onClick={handleCancel} className={`${styles.saveButton} ${isDark ? styles.darkSaveButton : ""}`}>✖ Cancel</button>
                     </div>
                 )}
             </div>
-
             {showFile && sourceFile && (
                 <div className={styles.filePreview}>
                     {sourceFile.type.includes("pdf") ? (
@@ -369,4 +331,4 @@ const PassportResult = ({ data }) => {
     );
 };
 
-export default PassportResult;
+export default IDCardResult;

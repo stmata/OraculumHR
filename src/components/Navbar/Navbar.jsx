@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import styles from "./Navbar.module.css";
 import logoLight from "../../assets/images/Logo-SKEMA-Couleur.png";
 import logoDark from "../../assets/images/Logo-SKEMA-Blanc.png";
@@ -16,16 +16,16 @@ const Navbar = () => {
   const t = translations[lang];
 
   const [menuOpen, setMenuOpen] = useState(false);
-useEffect(() => {
-  const handleResize = () => {
-    if (window.innerWidth > 768 && menuOpen) {
-      setMenuOpen(false);
-    }
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768 && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
 
-  window.addEventListener("resize", handleResize);
-  return () => window.removeEventListener("resize", handleResize);
-}, [menuOpen]);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [menuOpen]);
   return (
     <header className={`${styles.navbar} ${isDark ? styles.dark : ""}`}>
       <div className={styles.desktopContent}>
@@ -42,10 +42,10 @@ useEffect(() => {
         </div>
 
         <div className={styles.right}>
-          <div className={styles.langToggle}>
-            <span className={lang === "en" ? styles.activeLang : ""} onClick={() => setLang("en")}>EN</span>
+          <div className={styles.langToggle} onClick={() => setLang(lang === "en" ? "fr" : "en")}>
+            <span className={lang === "en" ? styles.activeLang : ""}>EN</span>
             <span> / </span>
-            <span className={lang === "fr" ? styles.activeLang : ""} onClick={() => setLang("fr")}>FR</span>
+            <span className={lang === "fr" ? styles.activeLang : ""}>FR</span>
           </div>
           <button className={styles.modeToggle} onClick={toggleTheme}>{icon}</button>
         </div>
@@ -68,21 +68,12 @@ useEffect(() => {
               </span>
             </div>
 
-            <div className={styles.langToggle}>
-              <span
-                className={lang === "en" ? styles.activeLang : ""}
-                onClick={() => setLang("en")}
-              >
-                EN
-              </span>
+            <div className={styles.langToggle} onClick={() => setLang(lang === "en" ? "fr" : "en")}>
+              <span className={lang === "en" ? styles.activeLang : ""}>EN</span>
               <span> / </span>
-              <span
-                className={lang === "fr" ? styles.activeLang : ""}
-                onClick={() => setLang("fr")}
-              >
-                FR
-              </span>
+              <span className={lang === "fr" ? styles.activeLang : ""}>FR</span>
             </div>
+
 
             <button className={styles.modeToggle} onClick={toggleTheme}>
               {icon}

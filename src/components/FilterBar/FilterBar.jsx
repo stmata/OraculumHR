@@ -18,8 +18,13 @@ const FilterBar = () => {
     setSearchTerm,
     detectedCountries
   } = useSession();
-  const countryOptions = [{ name: t.anywhere, flag: "📡" }, ...detectedCountries];
-
+  const countryOptions = [
+    { code: "anywhere", flag: "📡" },
+    ...detectedCountries.map((c) => ({
+      code: c.name,
+      flag: c.flag
+    }))
+  ];
   const handleCountryChange = (value) => setSelectedCountry(value);
   const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
@@ -42,9 +47,13 @@ const FilterBar = () => {
         </div>
         <CustomSelect
           options={countryOptions}
-          value={countryOptions.find((c) => c.name === selectedCountry)}
-          onChange={(selected) => handleCountryChange(selected.name)}
-          getOptionLabel={(option) => `${option.flag} ${option.name}`}
+          value={countryOptions.find((c) => c.code === selectedCountry)}
+          onChange={(selected) => handleCountryChange(selected.code)}
+          getOptionLabel={(option) =>
+            option.code === "anywhere"
+              ? `${option.flag} ${t.anywhere}`
+              : `${option.flag} ${option.code}`
+          }
           icon="📍"
         />
 
