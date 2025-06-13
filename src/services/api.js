@@ -19,7 +19,7 @@
 //   return res;
 // };
 // const BASE_URL = import.meta.env.VITE_APP_BASE_URL.replace(/\/$/, ""); // Supprime le slash final
-const BASE_URL = (window._env_?.VITE_APP_BASE_URL || import.meta.env.VITE_APP_BASE_URL).replace(/\/$/, "");
+const BASE_URL = window._env_?.VITE_APP_BASE_URL;
 
 export const postFormData = async (endpoint, formData) => {
   console.log(formData)
