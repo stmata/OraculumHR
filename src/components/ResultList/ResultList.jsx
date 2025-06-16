@@ -34,29 +34,45 @@ const ResultList = () => {
     }, [filterMode, extractedData, setSelectedCards]);
 
     const getUniqueId = (item, index) => {
+        const exportId =
+            item.full_name && item.date
+                ? `${item.full_name}__${item.date}`
+                : null;
+
+        const cleanIban = (item.code_iban || "").replace(/\s+/g, "");
+        const cleanBic = (item.code_bic || "").replace(/\s+/g, "");
+        const bankId =
+            cleanIban && cleanBic ? `${cleanIban}${cleanBic}` : null;
+        const diplomaID =
+            item.fullname && item.graduation_date
+                ? `${item.fullname}__${item.graduation_date}`
+                : null;
         return (
+            item.document_number ||
             item.id_number ||
             item.passport_number ||
-            item.resume_id ||
-            item.diploma_id ||
+            item.email ||
             item.document_id ||
-            (item.code_iban && item.code_bic && `${item.code_iban}_${item.code_bic}`) ||
-            (item.full_name && item.date_of_birth && `${item.full_name}_${item.date_of_birth}`) ||
-            `fallback_${index}`
+            bankId ||
+            exportId ||
+            diplomaID || `fallback_${index}`
         );
     };
 
     const normalizeCountry = (input) => {
-        const lower = input?.toLowerCase();
-        const match = countryData.find(
-            (c) =>
-                c.name.toLowerCase() === lower ||
-                c.isoAlpha3?.toLowerCase() === lower ||
-                (Array.isArray(c.aliases) &&
-                    c.aliases.some((alias) => alias.toLowerCase() === lower))
-        );
-        return match?.name.toLowerCase();
-    };
+  if (!input) return "";
+  const lower = input.toLowerCase();
+  const match = countryData.find(
+    (c) =>
+      c.name.toLowerCase() === lower ||
+      c.isoAlpha2?.toLowerCase() === lower ||
+      c.isoAlpha3?.toLowerCase() === lower ||
+      (Array.isArray(c.aliases) &&
+        c.aliases.some((alias) => alias.toLowerCase() === lower))
+  );
+  return match?.name.toLowerCase() || lower;
+};
+
 
     const hasSearch = searchTerm?.trim().length > 0;
     const hasCountry = selectedCountry?.toLowerCase() !== "anywhere";
@@ -75,11 +91,12 @@ const ResultList = () => {
             : true;
 
         const matchesCountry = hasCountry
-            ? normalizeCountry(item.country) === normalizeCountry(selectedCountry)
-            : true;
+  ? normalizeCountry(item.nationality || item.code_pays) === normalizeCountry(selectedCountry)
+  : true;
 
         return matchesSearch && matchesCountry;
     });
+    
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;

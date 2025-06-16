@@ -27,7 +27,7 @@ const IDCardResult = ({ data }) => {
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState(data);
 
-    if (docType !== "id_card") return null;
+    if (docType !== "idcard") return null;
 
     const withFallback = (value) => {
         const raw = value?.trim().toLowerCase();
@@ -284,11 +284,12 @@ const IDCardResult = ({ data }) => {
                         <div>
                             {editMode ? (
                                 <div className={styles.inputGroup}>
-                                    <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.city} :</div>
-                                    <input
+                                    <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.adress} :</div>
+                                    <textarea
                                         value={formData.address}
                                         onChange={handleChange("address")}
-                                        className={`${styles.editInputDate} ${isDark ? styles.darkeditInputDate : ""}`}
+                                        rows={5}
+                                        className={`${styles.editInputAdress} ${isDark ? styles.darkeditInputDate : ""}`}
                                     />
                                 </div>
                             ) : (

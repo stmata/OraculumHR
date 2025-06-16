@@ -10,7 +10,7 @@ import bankImg from "../../assets/images/card.jpg";
 import { ThemeContext } from "../../context/ThemeContext";
 
 const docTypes = [
-  { id: "id_card", labelKey: "idCard", image: idCardImg },
+  { id: "idcard", labelKey: "idCard", image: idCardImg },
   { id: "passport", labelKey: "passport", image: passportImg },
   { id: "resume", labelKey: "resume", image: resumeImg },
   { id: "diploma", labelKey: "diploma", image: diplomaImg },

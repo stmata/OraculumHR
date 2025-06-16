@@ -13,7 +13,7 @@ import ResultList from '../../components/ResultList/ResultList';
 
 const OraculumHR = () => {
   const [showModal, setShowModal] = useState(false);
-  const [selectedDocType, setSelectedDocType] = useState("id_card");
+  const [selectedDocType, setSelectedDocType] = useState("idcard");
   const { extractedData } = useSession();
   const [format, setFormat] = useState("PDF")
 

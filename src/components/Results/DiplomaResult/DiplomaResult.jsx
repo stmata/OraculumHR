@@ -30,7 +30,7 @@ const DiplomaResult = ({ data }) => {
     _sourceFileIndex,
   } = data;
 
-  const id = `${fullname}__${graduation_date}`;
+  const id = `${fullname}__${institution}_${field_of_study}_${degree}`;
 
   const [editMode, setEditMode] = useState(false);
   const [showFile, setShowFile] = useState(false);

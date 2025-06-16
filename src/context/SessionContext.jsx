@@ -5,7 +5,7 @@ export const SessionContext = createContext();
 
 export const SessionProvider = ({ children }) => {
     const [lang, setLang] = useState("en");
-    const [docType, setDocType] = useState("id_card");
+    const [docType, setDocType] = useState("idcard");
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [extractedData, setExtractedData] = useState(null);
     const [selectedCards, setSelectedCards] = useState([]);

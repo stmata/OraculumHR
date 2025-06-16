@@ -16,7 +16,7 @@ export const countryData = [
   {
     name: "Canada",
     flag: "🇨🇦",
-    aliases: ["Kanata", "CA", "CAN"],
+    aliases: ["Kanata", "CA", "CAN","CANADIAN"],
     isoAlpha3: "CAN",
     isoAlpha2: "CA"
   },
@@ -51,7 +51,7 @@ export const countryData = [
   {
     name: "Brazil",
     flag: "🇧🇷",
-    aliases: ["Brasil", "Brésil", "ブラジル", "BRASILEIRO","Brasileira"],
+    aliases: ["Brasil", "Brésil", "ブラジル", "BRASILEIRO","Brasileira","BRASILEIRO(A)"],
     isoAlpha3: "BRA",
     isoAlpha2: "BR"
   },
@@ -100,7 +100,7 @@ export const countryData = [
   {
     name: "Andorra",
     flag: "🇦🇩",
-    aliases: ["Andorre", "Principat d'Andorra"],
+    aliases: ["Andorre", "Principat d'Andorra","ANDORRANA"],
     isoAlpha3: "AND",
     isoAlpha2: "AD"
   },
@@ -282,7 +282,7 @@ export const countryData = [
   {
     name: "Cameroon",
     flag: "🇨🇲",
-    aliases: ["Cameroun", "Camerún"],
+    aliases: ["Cameroun", "Camerún","CAMEROONIAN"],
     isoAlpha3: "CMR",
     isoAlpha2: "CM"
   },
@@ -422,7 +422,7 @@ export const countryData = [
   {
     name: "Fiji",
     flag: "🇫🇯",
-    aliases: ["Fidji", "Republic of Fiji"],
+    aliases: ["Fidji", "Republic of Fiji","CITIZEN OF THE REPUBLIC OF THE FIJI ISLANDS"],
     isoAlpha3: "FJI",
     isoAlpha2: "FJ"
   },
@@ -611,7 +611,7 @@ export const countryData = [
   {
     name: "Iceland",
     flag: "🇮🇸",
-    aliases: ["Islande", "Ísland"],
+    aliases: ["Islande", "Ísland","ICELANDIC"],
     isoAlpha3: "ISL",
     isoAlpha2: "IS"
   },
@@ -758,7 +758,7 @@ export const countryData = [
   {
     name: "India",
     flag: "🇮🇳",
-    aliases: ["Inde", "Bharat", "भारत", "Republic of India"],
+    aliases: ["Inde", "Bharat", "भारत", "Republic of India","indian"],
     isoAlpha3: "IND",
     isoAlpha2: "IN"
   },
@@ -1281,7 +1281,7 @@ export const countryData = [
       "Royaume-Uni",
       "UK",
       "United Kingdom",
-      "Grande-Bretagne"
+      "Grande-Bretagne","BRITISH CITIZEN"
     ],
     "isoAlpha3": "GBR",
     "isoAlpha2": "GB"

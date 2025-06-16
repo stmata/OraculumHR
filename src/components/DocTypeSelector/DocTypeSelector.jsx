@@ -11,7 +11,7 @@ import diplomaImg from "../../assets/images/diploma.jpg";
 import bankImg from "../../assets/images/card.jpg";
 
 const docTypes = {
-  id_card: {
+  idcard: {
     label: "ID Card",
     image: idCardImg
   },
@@ -35,7 +35,7 @@ const docTypes = {
 
 const DocTypeSelector = ({ onEdit, forceFixedHeight = false }) => {
   const { docType } = useSession();
-  const { label, image } = docTypes[docType] || docTypes["id_card"];
+  const { label, image } = docTypes[docType] || docTypes["idcard"];
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
 

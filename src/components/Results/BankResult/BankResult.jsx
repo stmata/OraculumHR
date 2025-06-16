@@ -263,12 +263,13 @@ const BankResult = ({ data }) => {
                 <div className={styles.inputGroup}>
                   <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.bankBranch} :</div>
 
-                  <input
-                    type="text"
-                    className={`${styles.editInputGuichet} ${isDark ? styles.darkEditInputGuichet : ""}`}
-                    value={formData.guichet_banque}
-                    onChange={handleChange("guichet_banque")}
-                  />
+                 <textarea
+  className={`${styles.editInputGuichet} ${isDark ? styles.darkEditInputGuichet : ""}`}
+  value={formData.guichet_banque}
+  onChange={handleChange("guichet_banque")}
+  rows={5}
+/>
+
                 </div>
               ) : (
                 withFallback(guichet_banque)

@@ -267,7 +267,19 @@
     margin: 0 0.5rem;
     max-width: 40%;
 }
-
+.editInputAdress{
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: transparent;
+    color: #333333;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    padding: 0.25rem 0.75rem;
+    margin: 0 0.5rem;
+    max-width: 100%;
+}
 .darkIdNumber {
     background-color: #00B3E6 !important;
 

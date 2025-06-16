@@ -47,19 +47,26 @@ const DownloadFormatSelect = ({ value, onChange, className = "" }) => {
             const cleanBic = (item.code_bic || "").replace(/\s+/g, "");
             const bankId =
                 cleanIban && cleanBic ? `${cleanIban}${cleanBic}` : null;
+
             const diplomaID =
-                item.fullname && item.graduation_date
-                    ? `${item.fullname}__${item.graduation_date}`
+                item.fullname && item.institution && item.field_of_study && item.degree
+                    ? `${item.fullname}__${item.institution}_${item.field_of_study}_${item.degree}`
                     : null;
+            const clean = (val) => (val || "").toString().trim().toLowerCase();
+
+            const fallbackId = clean(item.firstname) && clean(item.lastname)
+                ? `${item.firstname}__${item.lastname}_${item._sourceFileIndex || 0}`
+                : `unknown_${item._sourceFileIndex || Math.random()}`;
             const id =
                 item.document_number ||
                 item.id_number ||
                 item.passport_number ||
-                item.email ||
+                (clean(item.email) && clean(item.email) !== "not provided" ? item.email : null) ||
                 item.document_id ||
                 bankId ||
                 exportId ||
                 diplomaID ||
+                fallbackId ||
                 null;
 
             if (id && selectedCards.includes(id) && !uniqueMap.has(id)) {

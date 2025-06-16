@@ -15,7 +15,7 @@ const ResultCard = ({ data }) => {
 
   let Component;
   switch (docType) {
-    case "id_card":
+    case "idcard":
       Component = <IDCardResult data={data} />;
       break;
     case "passport":
