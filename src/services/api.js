@@ -19,8 +19,12 @@
 //   return res;
 // };
 // const BASE_URL = (window._env_?.VITE_APP_BAS_URL || import.meta.env.VITE_APP_BASE_URL).replace(/\/$/, "");
-const BASE_URL = window._env_?.VITE_APP_BASE_URL;
+const BASE_URL =
+  (window._env_?.VITE_APP_BASE_URL || import.meta.env.VITE_APP_BASE_URL || "").replace(/\/$/, "");
 
+if (!BASE_URL) {
+  console.warn("BASE_URL is not defined. Check your env variables.");
+}
 // const BASE_URL = import.meta.env.VITE_APP_BASE_URL.replace(/\/$/, "");
 
 export const postFormData = async (endpoint, formData) => {
