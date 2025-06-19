@@ -24,13 +24,82 @@ const DownloadFormatSelect = ({ value, onChange, className = "" }) => {
         { label: "Excel", value: "xls" },
         { label: "CSV", value: "csv" },
     ];
-    const isDisabled = selectedCards.length === 0;
+    // const isDisabled = selectedCards.length === 0;
 
     useEffect(() => {
         if (!value && selectedCards.length > 0) {
             onChange("csv");
         }
     }, [value, selectedCards, onChange]);
+    // const isDisabled = selectedCards.length === 0 || extractedData.some(item => {
+    //     if (!selectedCards.includes(item._sourceFileIndex)) return false;
+    //     return Object.values(item).some(
+    //         (val) =>
+    //             typeof val === "string" &&
+    //             val.toLowerCase().includes("please enter manually")
+    //     );
+    // });
+    const isManualData = (data) => {
+        return Object.values(data).some(
+            (val) =>
+                typeof val === "string" &&
+                val.toLowerCase().includes("please enter manually")
+        );
+    };
+
+    // const getSafeId = (item) => {
+    //     return isManualData(item)
+    //         ? `manual-${item._sourceFileIndex}`
+    //         : item.passport_number ||
+    //           item.document_number ||
+    //           item.id_number ||
+    //           item.email ||
+    //           item.document_id ||
+    //           item._sourceFileIndex?.toString() || 
+    //           `fallback-${Math.random()}`;
+    // };
+
+    // const getSafeId = (item) => {
+    //     return isManualData(item)
+    //         ? `manual-${item._sourceFileIndex}`
+    //         : item.passport_number ||
+    //           (item.fullname && item.institution && item.field_of_study && item.degree
+    //             ? `${item.fullname}__${item.institution}_${item.field_of_study}_${item.degree}`
+    //             : null);
+    // };
+
+    const getSafeId = (item) => {
+        const isManual = isManualData(item);
+        if (isManual) return `manual-${item._sourceFileIndex}`;
+
+        const rawIban = item.code_iban || "";
+        const rawBic = item.code_bic || "";
+        const cleanIban = rawIban.replace(/\s+/g, "");
+        const cleanBic = rawBic.replace(/\s+/g, "");
+        const bankId = cleanIban && cleanBic ? `${cleanIban}${cleanBic}` : null;
+
+        const diplomaId =
+            item.fullname &&
+                item.institution &&
+                item.field_of_study &&
+                item.degree
+                ? `${item.fullname}__${item.institution}_${item.field_of_study}_${item.degree}`
+                : null;
+
+        return (
+            item.passport_number ||
+            item.document_number ||
+            item.id_number ||
+            item.email ||
+            item.document_id ||
+            bankId ||
+            diplomaId ||
+            `${item._sourceFileIndex}`
+        );
+    };
+
+
+    const isDisabled = selectedCards.length === 0;
 
     const handleExport = (format) => {
         if (isDisabled) return;
@@ -59,6 +128,7 @@ const DownloadFormatSelect = ({ value, onChange, className = "" }) => {
                 : `unknown_${item._sourceFileIndex || Math.random()}`;
             const id =
                 item.document_number ||
+                item._sourceFileIndex ||
                 item.id_number ||
                 item.passport_number ||
                 (clean(item.email) && clean(item.email) !== "not provided" ? item.email : null) ||
@@ -69,9 +139,15 @@ const DownloadFormatSelect = ({ value, onChange, className = "" }) => {
                 fallbackId ||
                 null;
 
-            if (id && selectedCards.includes(id) && !uniqueMap.has(id)) {
-                uniqueMap.set(id, item);
+            // const safeId = getSafeId(item).toString();
+            // if (selectedCards.includes(safeId) && !uniqueMap.has(safeId)) {
+            //     uniqueMap.set(safeId, item);
+            // }
+            const safeId = getSafeId(item);
+            if (selectedCards.includes(safeId) && !uniqueMap.has(safeId)) {
+                uniqueMap.set(safeId, item);
             }
+
         });
 
         const filtered = Array.from(uniqueMap.values()).map((item) => {

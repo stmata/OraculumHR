@@ -25,6 +25,20 @@ const PassportResult = ({ data }) => {
     const [showFile, setShowFile] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState(data);
+    const isManualData = (data) => {
+        return Object.values(data).some(
+            (val) =>
+                typeof val === "string" &&
+                val.toLowerCase().includes("please enter manually")
+        );
+    };
+    const hasManualWarning = isManualData(data);
+    useEffect(() => {
+        if (!editMode) {
+            setFormData({ ...data });
+        }
+    }, [data]);
+
 
     const {
         nationality,
@@ -37,21 +51,26 @@ const PassportResult = ({ data }) => {
         _sourceFileIndex
     } = data;
 
-    const id = passport_number;
-    const isSelected = filterMode === "All" || selectedCards.includes(id);
+    const safeId = isManualData(data) ? `manual-${_sourceFileIndex}` : passport_number;
+
+    const isSelected = selectedCards.includes(safeId);
 
     const withFallback = (value) => {
-        if (typeof value !== "string") return t.notProvided;
-        const raw = value.trim().toLowerCase();
-        return (!raw || raw === "not provided" || raw === "non fourni") ? t.notProvided : value;
+        const raw = value?.trim().toLowerCase();
+        if (!raw || raw === "not provided" || raw === "non fourni") return t.notProvided;
+        if (raw === "please enter manually") return t.plsmanually;
+        return value;
     };
 
     const toggleSelect = () => {
-        const alreadySelected = selectedCards.includes(id);
+        if (!safeId) return;
+        if (isManualData(data)) return;
+
+        const alreadySelected = selectedCards.includes(safeId);
 
         if (filterMode === "Manually") {
             setSelectedCards((prev) =>
-                alreadySelected ? prev.filter((el) => el !== id) : [...new Set([...prev, id])]
+                alreadySelected ? prev.filter((el) => el !== safeId) : [...new Set([...prev, safeId])]
             );
             return;
         }
@@ -59,7 +78,7 @@ const PassportResult = ({ data }) => {
         if (alreadySelected) return;
 
         if (filterMode === "All") {
-            setSelectedCards((prev) => [...prev, id]);
+            setSelectedCards((prev) => [...prev, safeId]);
             return;
         }
 
@@ -70,7 +89,7 @@ const PassportResult = ({ data }) => {
                 (val) => typeof val === "string" && val.toLowerCase().includes(term)
             );
             if (matches) {
-                setSelectedCards((prev) => [...prev, id]);
+                setSelectedCards((prev) => [...prev, safeId]);
             }
             return;
         }
@@ -80,10 +99,11 @@ const PassportResult = ({ data }) => {
             const itemCountry = nationality?.toLowerCase();
             const match = selected === "anywhere" || itemCountry === selected;
             if (match) {
-                setSelectedCards((prev) => [...prev, id]);
+                setSelectedCards((prev) => [...prev, safeId]);
             }
         }
     };
+
 
     const getCountryInfo = (nationality) => {
         const lowerCountry = nationality?.toLowerCase();
@@ -107,7 +127,7 @@ const PassportResult = ({ data }) => {
 
     const handleDoubleClick = () => {
         setEditMode(true);
-        setFormData(data);
+        setFormData({ ...formData });
     };
 
     const handleChange = (key) => (e) => {
@@ -115,11 +135,15 @@ const PassportResult = ({ data }) => {
     };
 
     const handleSave = () => {
+        const id = formData._sourceFileIndex;
         setExtractedData((prev) =>
-            prev.map((d) => d.passport_number === formData.passport_number ? { ...formData } : d)
+            prev.map((d) =>
+                d._sourceFileIndex === id ? { ...formData } : d
+            )
         );
         setEditMode(false);
     };
+
 
     const handleCancel = () => {
         setEditMode(false);
@@ -175,6 +199,15 @@ const PassportResult = ({ data }) => {
                         </div>
                     </div>
                 )}
+                {hasManualWarning && (
+                    <div className={styles.customToastError}>
+                        <div className={styles.toastIcon}>❗</div>
+                        <div className={styles.toastText}>
+                            {t.manuallyFieldsWarning}
+                        </div>
+                    </div>
+                )}
+
                 <div className={styles.contentRow}>
                     <div className={styles.left}>
 

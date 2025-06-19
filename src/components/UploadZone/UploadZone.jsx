@@ -8,7 +8,7 @@ import { FaRegEye } from "react-icons/fa";
 
 const UploadZone = ({ onFilesSelected, forceFixedHeight = false }) => {
   const fileInputRef = useRef();
-  const { lang,docType, uploadedFiles, setUploadedFiles, showList, setShowList, setExtractedData, setSelectedCards, setDetectedCountries, setFilterMode, setSelectedCountry, setSearchTerm } = useSession();
+  const { lang, docType, uploadedFiles, setUploadedFiles, showList, setShowList, setExtractedData, setSelectedCards, setDetectedCountries, setFilterMode, setSelectedCountry, setSearchTerm } = useSession();
 
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
@@ -26,9 +26,9 @@ const UploadZone = ({ onFilesSelected, forceFixedHeight = false }) => {
     onFilesSelected?.(selectedFiles);
     setShowList(true);
   };
-const fileAccept = docType === "resume"
-  ? ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-  : ".jpg,.jpeg,.png,.pdf,.doc,.docx,image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  const fileAccept = docType === "resume"
+    ? ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    : ".jpg,.jpeg,.png,.pdf,.doc,.docx,image/jpeg,image/png,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
 
   return (
@@ -40,7 +40,7 @@ const fileAccept = docType === "resume"
         ref={fileInputRef}
         type="file"
         multiple
-  accept={fileAccept}
+        accept={fileAccept}
         style={{ display: "none" }}
         onChange={handleChange}
       />

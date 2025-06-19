@@ -90,9 +90,7 @@ const ResumeResult = ({ data }) => {
   const sourceFile = uploadedFiles?.[_sourceFileIndex];
   const fileUrl = sourceFile ? URL.createObjectURL(sourceFile) : null;
 
-  const safeEmail = email?.trim().toLowerCase();
-  const fallbackId = `${firstname || "unknown"}__${lastname || "user"}_${_sourceFileIndex}`;
-  const id = safeEmail && safeEmail !== "not provided" ? safeEmail : fallbackId;
+  const id = email;
   const isSelected = filterMode === "All" || selectedCards.includes(id);
 
   const toggleSelect = () => {

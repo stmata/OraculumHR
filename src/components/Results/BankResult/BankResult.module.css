@@ -124,6 +124,7 @@
     background-color: black !important;
     color: white;
 }
+
 .iban {
     font-size: 0.95rem;
     color: #827c7c;
@@ -303,6 +304,23 @@
     background-color: black !important;
     color: white !important;
     width: 100%;
+}
+
+.customToastError {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #ffeaea;
+    border: 1px solid #f5c2c7;
+    padding: 0.2rem 0.2rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #842029;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin: 1rem 0;
+    max-width: 100%;
+    margin-top: 4vh;
 }
 
 .editInputGuichet {
@@ -521,7 +539,7 @@
     .middle .meta {
         width: 100%;
     }
-    
+
 
     .name {
         font-size: 1.1rem;

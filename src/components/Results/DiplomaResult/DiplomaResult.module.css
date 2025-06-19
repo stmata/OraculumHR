@@ -13,30 +13,32 @@
   border: 2px solid transparent;
   position: relative;
 }
+
 .inputGroup {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 1rem;
 }
+
 .idNumberWrapper {
-    margin-left: 1rem;
-    display: inline-block;
-    vertical-align: middle;
+  margin-left: 1rem;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 
 .editLabel {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-    color: #555;
-    text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #555;
+  text-align: left;
 }
 
 .darkeditLabel {
-    color: #ccc;
+  color: #ccc;
 }
 
 .customToastWarning {
@@ -330,10 +332,29 @@
   margin-top: 1.6rem;
   max-width: 100%;
 }
+
+.customToastError {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #ffeaea;
+  border: 1px solid #f5c2c7;
+  padding: 0.2rem 0.2rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #842029;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin: 1rem 0;
+  max-width: 100%;
+  margin-top: 4vh;
+}
+
 .editModeDate {
-    margin-top: 0px;
+  margin-top: 0px;
 
 }
+
 .darkIdNumber {
   background-color: #00B3E6 !important;
 

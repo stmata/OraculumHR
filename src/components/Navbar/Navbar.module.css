@@ -12,6 +12,13 @@
   z-index: 1000;
 }
 
+.titleBtn,
+.logoBtn {
+  background-color: transparent;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
 .left {
   display: flex;
   align-items: center;

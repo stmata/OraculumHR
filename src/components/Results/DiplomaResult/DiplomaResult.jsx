@@ -20,127 +20,120 @@ const DiplomaResult = ({ data }) => {
   const isDark = theme === "dark";
   const t = translations[lang];
 
-  const {
-    fullname,
-    institution,
-    field_of_study,
-    degree,
-    graduation_date,
-    diploma_number,
-    _sourceFileIndex,
-  } = data;
+  const isManualData = (data) => {
+    return Object.values(data).some(
+      (val) => typeof val === "string" && val.toLowerCase().includes("please enter manually")
+    );
+  };
 
-  const id = `${fullname}__${institution}_${field_of_study}_${degree}`;
+  const safeId = isManualData(data)
+    ? `manual-${data._sourceFileIndex}`
+    : `${data.fullname || "unknown"}__${data.institution || "unk"}_${data.field_of_study || "unk"}_${data.degree || "unk"}`;
 
   const [editMode, setEditMode] = useState(false);
   const [showFile, setShowFile] = useState(false);
   const [formData, setFormData] = useState(data);
-  const [fileUrl, setFileUrl] = useState(null);
+  const sourceFile = uploadedFiles?.[data._sourceFileIndex] || null;
+  const fileUrl = sourceFile ? URL.createObjectURL(sourceFile) : null;
 
-  const sourceFile = uploadedFiles?.[_sourceFileIndex] || null;
-
-  useEffect(() => {
-    if (!sourceFile) {
-      setFileUrl(null);
-      return;
-    }
-    const url = URL.createObjectURL(sourceFile);
-    setFileUrl(url);
-    return () => {
-      URL.revokeObjectURL(url);
-    };
-  }, [sourceFile]);
-
-  // const getCountryInfo = (c) => {
-  //   const lower = c?.trim().toLowerCase();
-  //   return countryData.find(
-  //     (x) =>
-  //       x.name.toLowerCase() === lower ||
-  //       x.isoAlpha3?.toLowerCase() === lower ||
-  //       (Array.isArray(x.aliases) &&
-  //         x.aliases.some((alias) => alias.toLowerCase() === lower))
-  //   );
-  // };
-  // const countryInfo = getCountryInfo(country);
+  const isSelected = selectedCards.includes(safeId);
+  const hasManualWarning = isManualData(editMode ? formData : data);
 
   const withFallback = (value) => {
-    const raw = value?.toString().trim();
-    if (!raw || raw.toLowerCase() === "not provided") return t.notProvided;
+    const raw = value?.trim().toLowerCase();
+    if (!raw || raw === "not provided" || raw === "non fourni") return t.notProvided;
+    if (raw === "please enter manually") return t.plsmanually;
     return value;
   };
 
-  if (docType !== "diploma") return null;
+  useEffect(() => {
+    if (!editMode) setFormData({ ...data });
+  }, [data]);
+useEffect(() => {
+  if (isManualData(data)) return;
 
-  const isSelected = filterMode === "All" || selectedCards.includes(id);
+  const shouldSelect = (() => {
+    if (filterMode === "All") return true;
 
-  const toggleSelect = () => {
-    const already = selectedCards.includes(id);
-
-    if (filterMode === "Manually") {
-      setSelectedCards((prev) =>
-        already ? prev.filter((x) => x !== id) : [...new Set([...prev, id])]
-      );
-      return;
-    }
-    if (already) return;
-
-    if (filterMode === "All") {
-      setSelectedCards((prev) => [...prev, id]);
-      return;
-    }
     if (filterMode === "Search") {
       const term = searchTerm?.trim().toLowerCase();
-      if (!term) return;
-      const matches = Object.values(data).some(
+      return term && Object.values(data).some(
         (val) => typeof val === "string" && val.toLowerCase().includes(term)
       );
-      if (matches) {
-        setSelectedCards((prev) => [...prev, id]);
-      }
-      return;
     }
-    // if (filterMode === "Country") {
-    //   const sel = selectedCountry?.toLowerCase();
-    //   const itemC = country?.toLowerCase();
-    //   const match = sel === "anywhere" || itemC === sel;
-    //   if (match) {
-    //     setSelectedCards((prev) => [...prev, id]);
-    //   }
-    // }
-  };
 
-  // useEffect(() => {
-  //   if (!countryInfo) return;
-  //   setDetectedCountries((prev) => {
-  //     const exists = prev.some((c) => c.name === countryInfo.name);
-  //     return exists
-  //       ? prev
-  //       : [...prev, { name: countryInfo.name, flag: countryInfo.flag }];
-  //   });
-  // }, [countryInfo, setDetectedCountries]);
+    return false;
+  })();
+
+  if (shouldSelect && !selectedCards.includes(safeId)) {
+    setSelectedCards((prev) => [...prev, safeId]);
+  }
+}, [filterMode, searchTerm, safeId, selectedCards]);
 
   useEffect(() => {
-    if (filterMode === "All" && !selectedCards.includes(id)) {
-      setSelectedCards((prev) => [...prev, id]);
+    return () => fileUrl && URL.revokeObjectURL(fileUrl);
+  }, [fileUrl]);
+
+  const isFieldMissing = () => {
+    const checks = [
+      "fullname",
+      "institution",
+      "field_of_study",
+      "degree",
+      "graduation_date",
+      "diploma_number",
+    ];
+    const source = editMode ? formData : data;
+    return checks.some((key) => {
+      const val = source[key];
+      if (!val) return true;
+      const raw = val.toString().trim().toLowerCase();
+      return raw === "" || raw === "not provided" || raw === "double check";
+    });
+  };
+
+  const hasWarning = !hasManualWarning && isFieldMissing();
+
+  const toggleSelect = () => {
+    if (!safeId || isManualData(data)) return;
+    const already = selectedCards.includes(safeId);
+
+    switch (filterMode) {
+      case "Manually":
+        setSelectedCards((prev) =>
+          already ? prev.filter((x) => x !== safeId) : [...new Set([...prev, safeId])]
+        );
+        break;
+      case "All":
+        if (!already) setSelectedCards((prev) => [...prev, safeId]);
+        break;
+      case "Search": {
+        const term = searchTerm?.trim().toLowerCase();
+        if (!term) return;
+        const matches = Object.values(data).some(
+          (val) => typeof val === "string" && val.toLowerCase().includes(term)
+        );
+        if (matches && !already) setSelectedCards((prev) => [...prev, safeId]);
+        break;
+      }
+      default:
+        break;
     }
-  }, [filterMode, id, selectedCards, setSelectedCards]);
+  };
 
   const handleDoubleClick = () => {
     setEditMode(true);
-    setFormData(data);
+    setFormData({ ...formData });
   };
 
   const handleChange = (key) => (e) => {
-    const value = e.target.value;
-    setFormData((prev) => ({ ...prev, [key]: value }));
+    setFormData((prev) => ({ ...prev, [key]: e.target.value }));
   };
 
   const handleSave = () => {
     setEditMode(false);
     setExtractedData((prev) =>
-      prev.map((d) =>
-        d.fullname + "__" + d.graduation_date === id ? { ...formData } : d
-      )
+      prev.map((d) => (d._sourceFileIndex === data._sourceFileIndex ? { ...formData } : d))
     );
   };
 
@@ -149,182 +142,122 @@ const DiplomaResult = ({ data }) => {
     setFormData(data);
   };
 
-  const toggleShowFile = (e) => {
-    e.stopPropagation();
-    setShowFile((prev) => !prev);
-  };
-  const isFieldMissing = () => {
-    const source = editMode ? formData : data;
+  if (docType !== "diploma") return null;
 
-    const checks = [
-      source.fullname,
-      source.institution,
-      source.field_of_study,
-      source.degree,
-      source.graduation_date,
-      source.diploma_number,
-      source.country,
-      source.city,
-    ];
-
-    return checks.some((val) => {
-      if (!val) return true;
-      const raw = val.toString().trim().toLowerCase();
-      return raw === "" || raw === "not provided" || raw === "double check";
-    });
-  };
-
-  const hasWarning = isFieldMissing();
   return (
     <div className={styles.resultWrapper}>
       <div
-        className={`
-          ${styles.card}
-          ${isDark ? styles.darkCard : ""}
-          ${isSelected ? styles.selected : ""}
-        `}
+        className={`${styles.card} ${isDark ? styles.darkCard : ""} ${isSelected ? styles.selected : ""}`}
         tabIndex={0}
-        onClick={() => {
-          if (!editMode) toggleSelect();
-        }}
+        onClick={() => !editMode && toggleSelect()}
         onDoubleClick={handleDoubleClick}
       >
         {hasWarning && (
           <div className={styles.customToastWarning}>
             <div className={styles.toastIcon}>⚠️</div>
-            <div className={styles.toastText}>
-              {t.incompleteFieldsWarning}
-            </div>
+            <div className={styles.toastText}>{t.incompleteFieldsWarning}</div>
           </div>
         )}
+        {hasManualWarning && (
+          <div className={styles.customToastError}>
+            <div className={styles.toastIcon}>❗</div>
+            <div className={styles.toastText}>{t.manuallyFieldsWarning}</div>
+          </div>
+        )}
+
         <div className={styles.contentRow}>
-          {/* <div className={styles.left}>
-            <div className={styles.flag}>{countryInfo?.flag || "🎓"}</div>
-
-            {editMode ? (
-              <>  <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.country} :</div>
-
-                <input
-                  type="text"
-                  className={`${styles.editInputPays} ${isDark ? styles.darkEditInputPays : ""
-                    }`}
-                  value={formData.country}
-                  onChange={handleChange("country")}
-                />
-              </>
-            ) : (
-              <div className={styles.country}>
-                {withFallback(countryInfo?.name || country)} —{" "}
-                {withFallback(city)}
-              </div>
-            )}
-          </div> */}
           <div className={styles.middle}>
             <div className={styles.nameRow}>
               {editMode ? (
                 <div className={styles.inputGroup}>
                   <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.name} :</div>
-
                   <input
                     type="text"
-                    className={`${styles.editInputFN} ${isDark ? styles.darkeditInputFN : ""
-                      }`}
+                    className={`${styles.editInputFN} ${isDark ? styles.darkeditInputFN : ""}`}
                     value={formData.fullname}
                     onChange={handleChange("fullname")}
                   />
                 </div>
               ) : (
-                <div className={styles.name}>{withFallback(fullname)}</div>
+                <div className={styles.name}>{withFallback(data.fullname)}</div>
               )}
             </div>
             <div className={styles.meta}>
               {editMode ? (
-
                 <>
-                  <div className={styles.nameRow}>
-                    <div className={styles.inputGroup}>
-                      <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.degree} :</div>
-                      <input
-                        type="text"
-                        className={`${styles.editInputMeta} ${isDark ? styles.darkeditInputMeta : ""
-                          }`}
-                        value={formData.degree}
-                        onChange={handleChange("degree")}
-                      />
-                    </div>
-
-                    <div className={styles.inputGroup}>
-                      <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.major} :</div>
-                      <input
-                        type="text"
-                        className={`${styles.editInputMeta} ${isDark ? styles.darkeditInputMeta : ""
-                          }`}
-                        value={formData.field_of_study}
-                        onChange={handleChange("field_of_study")}
-                      />
-                    </div>
+                  <div className={styles.inputGroup}>
+                    <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.degree} :</div>
+                    <input
+                      type="text"
+                      className={`${styles.editInputMeta} ${isDark ? styles.darkeditInputMeta : ""}`}
+                      value={formData.degree}
+                      onChange={handleChange("degree")}
+                    />
+                  </div>
+                  <div className={styles.inputGroup}>
+                    <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.major} :</div>
+                    <input
+                      type="text"
+                      className={`${styles.editInputMeta} ${isDark ? styles.darkeditInputMeta : ""}`}
+                      value={formData.field_of_study}
+                      onChange={handleChange("field_of_study")}
+                    />
                   </div>
                 </>
               ) : (
-                `${withFallback(degree)} — ${withFallback(field_of_study)}`
+                `${withFallback(data.degree)} — ${withFallback(data.field_of_study)}`
               )}
             </div>
             <div className={styles.meta}>
               {editMode ? (
                 <div className={styles.inputGroup}>
                   <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.university} :</div>
-
                   <input
                     type="text"
-                    className={`${styles.editInputFN} ${isDark ? styles.darkeditInputFN : ""
-                      }`}
+                    className={`${styles.editInputFN} ${isDark ? styles.darkeditInputFN : ""}`}
                     value={formData.institution}
                     onChange={handleChange("institution")}
                   />
                 </div>
               ) : (
-                withFallback(institution)
+                withFallback(data.institution)
               )}
             </div>
           </div>
+
           <div className={styles.right}>
             <div>
               {editMode ? (
                 <div className={styles.inputGroup}>
                   <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.date_obtention} :</div>
-
                   <input
                     type="text"
-                    className={`${styles.editInputDate} ${isDark ? styles.darkEditInputDate : ""} ${editMode ? styles.editModeDate : ""}`}
-
+                    className={`${styles.editInputDate} ${isDark ? styles.darkEditInputDate : ""}`}
                     value={formData.graduation_date}
                     onChange={handleChange("graduation_date")}
                   />
                 </div>
               ) : (
-                withFallback(graduation_date)
+                withFallback(data.graduation_date)
               )}
             </div>
             <div>
               {editMode ? (
                 <div className={styles.inputGroup}>
-                  <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""} `}>{t.diploma_number} :</div>
-
+                  <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.diploma_number} :</div>
                   <input
                     type="text"
-                    className={`${styles.editInputLang} ${isDark ? styles.darkEditInputLang : ""
-                      } ${editMode ? styles.editModeDate : ""}`}
+                    className={`${styles.editInputLang} ${isDark ? styles.darkEditInputLang : ""}`}
                     value={formData.diploma_number}
                     onChange={handleChange("diploma_number")}
                   />
                 </div>
               ) : (
-                withFallback(diploma_number)
+                withFallback(data.diploma_number)
               )}
             </div>
-
             {sourceFile && (
-              <button className={styles.moreBtn} onClick={toggleShowFile}>
+              <button className={styles.moreBtn} onClick={(e) => { e.stopPropagation(); setShowFile((prev) => !prev); }}>
                 📄
               </button>
             )}
@@ -335,15 +268,13 @@ const DiplomaResult = ({ data }) => {
           <div className={styles.actionButtons}>
             <button
               onClick={handleSave}
-              className={`${styles.saveButton} ${isDark ? styles.darkSaveButton : ""
-                }`}
+              className={`${styles.saveButton} ${isDark ? styles.darkSaveButton : ""}`}
             >
               {t.save || "Save"}
             </button>
             <button
               onClick={handleCancel}
-              className={`${styles.saveButton} ${isDark ? styles.darkSaveButton : ""
-                }`}
+              className={`${styles.saveButton} ${isDark ? styles.darkSaveButton : ""}`}
             >
               {t.cancel || "Cancel"}
             </button>

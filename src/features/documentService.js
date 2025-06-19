@@ -49,9 +49,8 @@ export const extractDocuments = async (docType, files) => {
   const formData = new FormData();
   formData.append("doc_type", docType);
 
-  // Append all files — FastAPI attend "files"
   for (let file of files) {
-    formData.append("files", file);  // PLURIEL ici !
+    formData.append("files", file); 
   }
 
   return await postFormData(PARSE_ENDPOINT, formData);

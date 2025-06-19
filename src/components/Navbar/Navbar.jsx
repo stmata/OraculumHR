@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import styles from "./Navbar.module.css";
+import { useNavigate } from "react-router-dom";
 import logoLight from "../../assets/images/Logo-SKEMA-Couleur.png";
 import logoDark from "../../assets/images/Logo-SKEMA-Blanc.png";
 import { ThemeContext } from "../../context/ThemeContext";
@@ -11,6 +12,11 @@ const Navbar = () => {
   const isDark = theme === "dark";
   const logo = isDark ? logoDark : logoLight;
   const icon = isDark ? "☀️" : "🌓";
+  const navigate = useNavigate();
+
+  const refresh = () => {
+    navigate(0);
+  };
 
   const { lang, setLang } = useSession();
   const t = translations[lang];
@@ -30,15 +36,21 @@ const Navbar = () => {
     <header className={`${styles.navbar} ${isDark ? styles.dark : ""}`}>
       <div className={styles.desktopContent}>
         <div className={styles.left}>
-          <img src={logo} alt="SKEMA Logo" className={styles.logoImg} />
-          <div className={styles.titleBlock}>
-            <span className={`${styles.title} ${isDark ? styles.titleDark : ""}`}>
-              Oraculum<span className={`${styles.hr} ${isDark ? styles.hrDark : ""}`}>HR</span>
-            </span>
-            <span className={`${styles.subtitle} ${isDark ? styles.subtitleDark : ""}`}>
-              {t.bySkema}
-            </span>
-          </div>
+          <button onClick={refresh} className={styles.logoBtn}>
+            <img src={logo} alt="SKEMA Logo" className={styles.logoImg} />
+          </button>
+
+          <button onClick={refresh} className={styles.titleBtn}>
+            <div className={styles.titleBlock}>
+              <span className={`${styles.title} ${isDark ? styles.titleDark : ""}`}>
+                Oraculum
+                <span className={`${styles.hr} ${isDark ? styles.hrDark : ""}`}>HR</span>
+              </span>
+              <span className={`${styles.subtitle} ${isDark ? styles.subtitleDark : ""}`}>
+                {t.bySkema}
+              </span>
+            </div>
+          </button>
         </div>
 
         <div className={styles.right}>

@@ -25,14 +25,29 @@ const IDCardResult = ({ data }) => {
 
     const [showFile, setShowFile] = useState(false);
     const [editMode, setEditMode] = useState(false);
-    const [formData, setFormData] = useState(data);
-
+    const [formData, setFormData] = useState(() => ({ ...data }));
+    const isManualData = (data) => {
+        return Object.values(data).some(
+            (val) =>
+                typeof val === "string" &&
+                val.toLowerCase().includes("please enter manually")
+        );
+    };
+    const hasManualWarning = isManualData(data);
+    useEffect(() => {
+        if (!editMode) {
+            setFormData({ ...data });
+        }
+    }, [data]);
     if (docType !== "idcard") return null;
 
     const withFallback = (value) => {
         const raw = value?.trim().toLowerCase();
         if (!raw || raw === "not provided" || raw === "non fourni") {
             return t.notProvided;
+        }
+        if (raw === "please enter manually") {
+            return t.plsmanually;
         }
         return value;
     };
@@ -51,43 +66,95 @@ const IDCardResult = ({ data }) => {
 
     const sourceFile = uploadedFiles?.[_sourceFileIndex];
     const fileUrl = sourceFile ? URL.createObjectURL(sourceFile) : null;
-    const isSelected = filterMode === "All" || selectedCards.includes(document_number);
+    const isSelected = selectedCards.includes(document_number);
+    // const isSelected = filterMode === "All" || selectedCards.includes(_sourceFileIndex);
+
+    // const toggleSelect = () => {
+    //     const alreadySelected = selectedCards.includes(document_number);
+    //     if (filterMode === "Manually") {
+    //         setSelectedCards((prev) =>
+    //             alreadySelected
+    //                 ? prev.filter((id) => id !== document_number)
+    //                 : [...new Set([...prev, document_number])]
+    //         );
+    //         return;
+    //     }
+    //     if (alreadySelected) return;
+    //     if (filterMode === "All") {
+    //         setSelectedCards((prev) => [...prev, document_number]);
+    //         return;
+    //     }
+    //     if (filterMode === "Search") {
+    //         const term = searchTerm?.trim().toLowerCase();
+    //         if (!term) return;
+    //         const matches = Object.values(data).some(
+    //             (val) => typeof val === "string" && val.toLowerCase().includes(term)
+    //         );
+    //         if (matches) {
+    //             setSelectedCards((prev) => [...prev, document_number]);
+    //         }
+    //         return;
+    //     }
+    //     if (filterMode === "Country") {
+    //         const selected = selectedCountry?.toLowerCase();
+    //         const itemCountry = nationality?.toLowerCase();
+    //         const match = selected === "anywhere" || itemCountry === selected;
+    //         if (match) {
+    //             setSelectedCards((prev) => [...prev, document_number]);
+    //         }
+    //     }
+    // };
 
     const toggleSelect = () => {
-        const alreadySelected = selectedCards.includes(document_number);
-        if (filterMode === "Manually") {
-            setSelectedCards((prev) =>
-                alreadySelected
-                    ? prev.filter((id) => id !== document_number)
-                    : [...new Set([...prev, document_number])]
-            );
-            return;
-        }
-        if (alreadySelected) return;
-        if (filterMode === "All") {
-            setSelectedCards((prev) => [...prev, document_number]);
-            return;
-        }
-        if (filterMode === "Search") {
-            const term = searchTerm?.trim().toLowerCase();
-            if (!term) return;
-            const matches = Object.values(data).some(
-                (val) => typeof val === "string" && val.toLowerCase().includes(term)
-            );
-            if (matches) {
-                setSelectedCards((prev) => [...prev, document_number]);
+        const id = document_number;
+        if (!id) return;
+
+        if (isManualData(data)) return;
+
+        const alreadySelected = selectedCards.includes(id);
+
+        switch (filterMode) {
+            case "Manually":
+                setSelectedCards((prev) =>
+                    alreadySelected ? prev.filter((v) => v !== id) : [...prev, id]
+                );
+                break;
+
+            case "All":
+                if (!alreadySelected) {
+                    setSelectedCards((prev) => [...prev, id]);
+                }
+                break;
+
+            case "Search": {
+                if (alreadySelected) break;
+                const term = searchTerm?.trim().toLowerCase();
+                if (!term) break;
+                const matches = Object.values(data).some(
+                    (val) => typeof val === "string" && val.toLowerCase().includes(term)
+                );
+                if (matches) {
+                    setSelectedCards((prev) => [...prev, id]);
+                }
+                break;
             }
-            return;
-        }
-        if (filterMode === "Country") {
-            const selected = selectedCountry?.toLowerCase();
-            const itemCountry = nationality?.toLowerCase();
-            const match = selected === "anywhere" || itemCountry === selected;
-            if (match) {
-                setSelectedCards((prev) => [...prev, document_number]);
+
+            case "Country": {
+                if (alreadySelected) break;
+                const selected = selectedCountry?.toLowerCase();
+                const itemCountry = nationality?.toLowerCase();
+                const match = selected === "anywhere" || itemCountry === selected;
+                if (match) {
+                    setSelectedCards((prev) => [...prev, id]);
+                }
+                break;
             }
+
+            default:
+                break;
         }
     };
+
 
     const getCountryInfo = (nationality) => {
         const lowerCountry = nationality?.toLowerCase();
@@ -112,20 +179,28 @@ const IDCardResult = ({ data }) => {
 
     const handleDoubleClick = () => {
         setEditMode(true);
-        setFormData(data);
+        setFormData({ ...formData });
     };
 
     const handleChange = (key) => (e) =>
         setFormData((prev) => ({ ...prev, [key]: e.target.value }));
 
+    // const handleSave = () => {
+    //     const id = formData.document_number;
+    //     setExtractedData((prev) =>
+    //         prev.map((d) => (d.document_number === id ? { ...formData } : d))
+    //     );
+    //     setEditMode(false);
+    // };
     const handleSave = () => {
-        const id = formData.document_number;
+        const id = formData._sourceFileIndex;
         setExtractedData((prev) =>
-            prev.map((d) => (d.document_number === id ? { ...formData } : d))
+            prev.map((d) =>
+                d._sourceFileIndex === id ? { ...formData } : d
+            )
         );
         setEditMode(false);
     };
-
     const handleCancel = () => {
         setEditMode(false);
         setFormData(data);
@@ -165,6 +240,14 @@ const IDCardResult = ({ data }) => {
                         <div className={styles.toastIcon}>⚠️</div>
                         <div className={styles.toastText}>
                             {t.incompleteFieldsWarning}
+                        </div>
+                    </div>
+                )}
+                {hasManualWarning && (
+                    <div className={styles.customToastError}>
+                        <div className={styles.toastIcon}>❗</div>
+                        <div className={styles.toastText}>
+                            {t.manuallyFieldsWarning}
                         </div>
                     </div>
                 )}

@@ -4,7 +4,6 @@ import { ThemeContext } from "../../../context/ThemeContext";
 import { useSession } from "../../../context/SessionContext";
 import { translations } from "../../../constants/translations";
 import { countryData } from "../../../constants/countryFlags";
-import { Alert, AlertTitle } from '@mui/material';
 
 const BankResult = ({ data }) => {
   const {
@@ -16,6 +15,8 @@ const BankResult = ({ data }) => {
     setExtractedData,
     docType,
     lang,
+    searchTerm,
+    selectedCountry,
   } = useSession();
 
   const { theme } = useContext(ThemeContext);
@@ -31,91 +32,114 @@ const BankResult = ({ data }) => {
     guichet_banque,
     _sourceFileIndex,
   } = data;
+
   const cleanIban = (code_iban || "").replace(/\s+/g, "");
   const cleanBic = (code_bic || "").replace(/\s+/g, "");
-  const id = `${cleanIban}${cleanBic}`;
-  const sourceFile = uploadedFiles?.[_sourceFileIndex] || null;
-  const [fileUrl, setFileUrl] = useState(null);
-  const [showFile, setShowFile] = useState(false);
-
-  useEffect(() => {
-    if (!sourceFile) {
-      setFileUrl(null);
-      return;
-    }
-    const url = URL.createObjectURL(sourceFile);
-    setFileUrl(url);
-    return () => {
-      URL.revokeObjectURL(url);
-    };
-  }, [sourceFile]);
-
-  const getCountryInfo = (code) => {
-    const match = countryData.find(
-      (c) => c.isoAlpha2?.toLowerCase() === code?.toLowerCase()
+  const isManualData = (target) => {
+    return Object.values(target).some(
+      (val) => typeof val === "string" && val.toLowerCase().includes("please enter manually")
     );
-    return match || { name: code || "Unknown", flag: "🏳️" };
   };
-  const countryInfo = getCountryInfo(code_pays);
+  const safeId = isManualData(data)
+    ? `manual-${_sourceFileIndex}`
+    : `${cleanIban}${cleanBic}` || `${_sourceFileIndex}`;
 
-  const withFallback = (value) => {
-    const raw = value?.toString().trim();
-    if (!raw || raw.toLowerCase() === "not provided") return t.notProvided;
-    return value;
-  };
-
-  const isSelected = filterMode === "All" || selectedCards.includes(id);
 
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState(data);
+  const [showFile, setShowFile] = useState(false);
+
+  const sourceFile = uploadedFiles?.[_sourceFileIndex] || null;
+  const fileUrl = sourceFile ? URL.createObjectURL(sourceFile) : null;
+
+  const isSelected = selectedCards.includes(safeId);
 
   useEffect(() => {
-    if (!countryInfo?.name) return;
-    setDetectedCountries((prev) => {
-      const exists = prev.some((c) => c.name === countryInfo.name);
-      return exists
-        ? prev
-        : [...prev, { name: countryInfo.name, flag: countryInfo.flag }];
-    });
-  }, [countryInfo, setDetectedCountries]);
+    return () => fileUrl && URL.revokeObjectURL(fileUrl);
+  }, [fileUrl]);
 
   useEffect(() => {
-    if (filterMode === "All" && !selectedCards.includes(id)) {
-      setSelectedCards((prev) => [...prev, id]);
+    if (isManualData(data)) return;
+
+    const shouldSelect = (() => {
+      if (filterMode === "All") return true;
+
+      if (filterMode === "Search") {
+        const term = searchTerm?.trim().toLowerCase();
+        return term && Object.values(data).some(
+          (val) => typeof val === "string" && val.toLowerCase().includes(term)
+        );
+      }
+
+      if (filterMode === "Country") {
+        const selected = selectedCountry?.toLowerCase();
+        const itemCountry = code_pays?.toLowerCase();
+        return selected === "anywhere" || itemCountry === selected;
+      }
+
+      return false;
+    })();
+
+    if (shouldSelect && !selectedCards.includes(safeId)) {
+      setSelectedCards((prev) => [...prev, safeId]);
     }
-  }, [filterMode, id, selectedCards, setSelectedCards]);
+  }, [filterMode, searchTerm, selectedCountry, selectedCards, safeId]);
 
-  if (docType !== "bank") return null;
+  const isFieldMissing = () => {
+    const source = editMode ? formData : data;
+    const fields = [
+      source.libellé_du_compte,
+      source.code_pays,
+      source.code_iban,
+      source.code_bic,
+      source.nom_banque,
+      source.guichet_banque,
+    ];
+    return fields.some((val) => {
+      if (!val) return true;
+      const raw = val.toString().trim().toLowerCase();
+      return raw === "" || raw === "not provided" || raw === "double check";
+    });
+  };
+
+  const hasManualWarning = isManualData(data);
+  const hasWarning = !hasManualWarning && isFieldMissing();
 
   const toggleSelect = () => {
-    const alreadySelected = selectedCards.includes(id);
+    if (!safeId || isManualData(data)) return;
+    const already = selectedCards.includes(safeId);
     setSelectedCards((prev) =>
-      alreadySelected ? prev.filter((el) => el !== id) : [...new Set([...prev, id])]
+      already ? prev.filter((el) => el !== safeId) : [...new Set([...prev, safeId])]
     );
   };
 
   const handleDoubleClick = () => {
     setEditMode(true);
-    setFormData(data);
+    setFormData({ ...formData });
   };
 
   const handleChange = (key) => (e) => {
-    const value = e.target.value;
-    setFormData((prev) => ({ ...prev, [key]: value }));
+    setFormData((prev) => ({ ...prev, [key]: e.target.value }));
   };
 
+  // const handleSave = () => {
+  //   setEditMode(false);
+  //   setExtractedData((prev) =>
+  //     prev.map((d) => {
+  //       const idCompare = `${(d.code_iban || "").replace(/\s+/g, "")}${(d.code_bic || "").replace(/\s+/g, "")}`;
+  //       return idCompare === safeId ? { ...formData } : d;
+  //     })
+  //   );
+  // };
   const handleSave = () => {
-    setEditMode(false);
+    const id = formData._sourceFileIndex;
     setExtractedData((prev) =>
-      prev.map((d) => {
-        const currentId =
-          (d.code_iban || "").replace(/\s+/g, "") +
-          (d.code_bic || "").replace(/\s+/g, "");
-        return currentId === id ? { ...formData } : d;
-      })
+      prev.map((d) =>
+        d._sourceFileIndex === id ? { ...formData } : d
+      )
     );
+    setEditMode(false);
   };
-
   const handleCancel = () => {
     setEditMode(false);
     setFormData(data);
@@ -125,56 +149,71 @@ const BankResult = ({ data }) => {
     e.stopPropagation();
     setShowFile((prev) => !prev);
   };
-  const isFieldMissing = () => {
-    const source = editMode ? formData : data;
 
-    const checks = [
-      source.libellé_du_compte,
-      source.code_pays,
-      source.code_iban,
-      source.code_bic,
-      source.nom_banque,
-      source.guichet_banque
-    ];
+  const getCountryInfo = (code) => {
+    const match = countryData.find(
+      (c) => c.isoAlpha2?.toLowerCase() === code?.toLowerCase()
+    );
+    return match || { name: code || "Unknown", flag: "🏳️" };
+  };
+  const countryInfo = getCountryInfo(code_pays);
 
-    return checks.some((val) => {
-      if (!val) return true;
-      const raw = val.toString().trim().toLowerCase();
-      return raw === "" || raw === "not provided" || raw === "double check";
+  useEffect(() => {
+    const name = countryInfo?.name?.toLowerCase();
+
+    if (
+      !name ||
+      name === "not provided" ||
+      name === "please enter manually" ||
+      name === "non fourni" ||
+      name.trim() === ""
+    ) {
+      return;
+    }
+
+    setDetectedCountries((prev) => {
+      const exists = prev.some((c) => c.name.toLowerCase() === countryInfo.name.toLowerCase());
+      return exists ? prev : [...prev, { name: countryInfo.name, flag: countryInfo.flag }];
     });
+  }, [countryInfo, setDetectedCountries]);
+
+
+  const withFallback = (value) => {
+    const raw = value?.toString().trim();
+    if (!raw || raw.toLowerCase() === "not provided") return t.notProvided;
+    if (raw.toLowerCase() === "please enter manually") return t.plsmanually;
+    return value;
   };
 
-  const hasWarning = isFieldMissing();
+  if (docType !== "bank") return null;
 
   return (
-    <div className={`${styles.cardWrapper}`}>
-
+    <div className={styles.cardWrapper}>
       <div
-        className={`
-          ${styles.card}
-          ${isDark ? styles.darkCard : ""}
-          ${isSelected ? styles.selected : ""}
-        `}
+        className={`${styles.card} ${isDark ? styles.darkCard : ""} ${isSelected ? styles.selected : ""}`}
         tabIndex={0}
-        onClick={() => {
-          if (!editMode) toggleSelect();
-        }}
+        onClick={() => !editMode && toggleSelect()}
         onDoubleClick={handleDoubleClick}
       >
         {hasWarning && (
           <div className={styles.customToastWarning}>
             <div className={styles.toastIcon}>⚠️</div>
-            <div className={styles.toastText}>
-              {t.incompleteFieldsWarning}
-            </div>
+            <div className={styles.toastText}>{t.incompleteFieldsWarning}</div>
           </div>
         )}
+        {hasManualWarning && (
+          <div className={styles.customToastError}>
+            <div className={styles.toastIcon}>❗</div>
+            <div className={styles.toastText}>{t.manuallyFieldsWarning}</div>
+          </div>
+        )}
+
         <div className={styles.contentRow}>
           <div className={styles.left}>
             <div className={styles.flag}>{countryInfo.flag}</div>
             {editMode ? (
-              <>  <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.country} :</div>
-
+              <>
+                <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.country} :</div>
                 <input
                   type="text"
                   className={`${styles.editInputPays} ${isDark ? styles.darkEditInputPays : ""}`}
@@ -183,16 +222,15 @@ const BankResult = ({ data }) => {
                 />
               </>
             ) : (
-              <div className={styles.country}>
-                {withFallback(countryInfo.name)}
-              </div>
+              <div className={styles.country}>{withFallback(countryInfo.name)}</div>
             )}
           </div>
+
           <div className={styles.middle}>
             <div className={styles.nameRow}>
-
               {editMode ? (
-                <>  <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.name} :</div>
+                <>
+                  <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.name} :</div>
                   <input
                     type="text"
                     className={`${styles.editInputFN} ${isDark ? styles.darkeditInputFN : ""}`}
@@ -201,47 +239,43 @@ const BankResult = ({ data }) => {
                   />
                 </>
               ) : (
-                <div className={styles.name}>
-                  {withFallback(libellé_du_compte)}
-                </div>
+                <div className={styles.name}>{withFallback(libellé_du_compte)}</div>
               )}
 
+              <div className={styles.value}>
+                {editMode ? (
+                  <>
+                    <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>IBAN :</div>
+                    <input
+                      type="text"
+                      className={`${styles.editInputFN} ${isDark ? styles.darkeditInputMeta : ""}`}
+                      value={formData.code_iban}
+                      onChange={handleChange("code_iban")}
+                    />
+                  </>
+                ) : (
+                  <span className={styles.iban}>{withFallback(code_iban)}</span>
+                )}
+              </div>
 
-            <div className={styles.value}>
-              {editMode ? (
-                <>  <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>IBAN :</div>
-                  <input
-                    type="text"
-                    className={`${styles.editInputFN} ${isDark ? styles.darkeditInputMeta : ""}`}
-                    value={formData.code_iban}
-                    onChange={handleChange("code_iban")}
-                  />
-                </>
-              ) : (
-                <span className={styles.iban}>{withFallback(code_iban)}</span>
-              )}
+              <div className={styles.value}>
+                {editMode ? (
+                  <>
+                    <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>BIC :</div>
+                    <input
+                      type="text"
+                      className={`${styles.editInputFN} ${isDark ? styles.darkeditInputMeta : ""}`}
+                      value={formData.code_bic}
+                      onChange={handleChange("code_bic")}
+                    />
+                  </>
+                ) : (
+                  <span className={styles.iban}>{withFallback(code_bic)}</span>
+                )}
+              </div>
             </div>
-
-
-
-            <div className={styles.value}>
-              {editMode ? (
-                <>  <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>BIC :</div>
-
-                  <input
-                    type="text"
-                    className={`${styles.editInputFN} ${isDark ? styles.darkeditInputMeta : ""}`}
-                    value={formData.code_bic}
-                    onChange={handleChange("code_bic")}
-                  />
-                </>
-              ) : (
-                <span className={styles.iban}>{withFallback(code_bic)}</span>
-              )}
-            </div>
-            </div>
-
           </div>
+
           <div className={styles.right}>
             <div className={styles.meta}>
               {editMode ? (
@@ -258,23 +292,23 @@ const BankResult = ({ data }) => {
                 withFallback(nom_banque)
               )}
             </div>
+
             <div className={styles.meta}>
               {editMode ? (
                 <div className={styles.inputGroup}>
                   <div className={`${styles.editLabel} ${isDark ? styles.darkeditLabel : ""}`}>{t.bankBranch} :</div>
-
-                 <textarea
-  className={`${styles.editInputGuichet} ${isDark ? styles.darkEditInputGuichet : ""}`}
-  value={formData.guichet_banque}
-  onChange={handleChange("guichet_banque")}
-  rows={5}
-/>
-
+                  <textarea
+                    className={`${styles.editInputGuichet} ${isDark ? styles.darkEditInputGuichet : ""}`}
+                    value={formData.guichet_banque}
+                    onChange={handleChange("guichet_banque")}
+                    rows={5}
+                  />
                 </div>
               ) : (
                 withFallback(guichet_banque)
               )}
             </div>
+
             {sourceFile && (
               <button className={styles.moreBtn} onClick={toggleShowFile}>
                 📄
@@ -282,6 +316,7 @@ const BankResult = ({ data }) => {
             )}
           </div>
         </div>
+
         {editMode && (
           <div className={styles.actionButtons}>
             <button
@@ -299,12 +334,15 @@ const BankResult = ({ data }) => {
           </div>
         )}
       </div>
+
       {showFile && sourceFile && (
-        <div className={
-          sourceFile.type.includes("image")
-            ? styles.imagePreview
-            : styles.filePreview
-        }>
+        <div
+          className={
+            sourceFile.type.includes("image")
+              ? styles.imagePreview
+              : styles.filePreview
+          }
+        >
           {sourceFile.type.includes("pdf") ? (
             <iframe src={fileUrl} />
           ) : sourceFile.type.includes("image") ? (

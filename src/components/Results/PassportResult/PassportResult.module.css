@@ -13,6 +13,7 @@
     max-height: fit-content;
     flex-direction: column;
 }
+
 .inputGroup {
     display: flex;
     flex-direction: column;
@@ -20,6 +21,7 @@
     width: 100%;
     margin-bottom: 1rem;
 }
+
 .idNumberWrapper {
     margin-left: 1rem;
     display: inline-block;
@@ -303,6 +305,23 @@
     color: white !important;
 }
 
+.customToastError {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #ffeaea;
+    border: 1px solid #f5c2c7;
+    padding: 0.2rem 0.2rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #842029;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin: 1rem 0;
+    max-width: 100%;
+    margin-top: 4vh;
+}
+
 .idNumberInput {
     background-color: #E7433C;
     color: #fff;
@@ -408,7 +427,7 @@
 
     .contentRow {
         flex-direction: column;
-        align-items: stretch; /* aligner tout au même niveau */
+        align-items: stretch;
         max-height: none;
         width: 100%;
     }
@@ -419,10 +438,11 @@
         width: 100%;
         max-width: 100%;
     }
-.actionButtons {
-  
-    width: 50%;
-}
+
+    .actionButtons {
+
+        width: 50%;
+    }
 
 
     .middle {
@@ -459,9 +479,12 @@
         width: 90%;
         margin: 0.25rem 0;
     }
-.editInputLN{
-    width: 19%;
-}    .actionButtons {
+
+    .editInputLN {
+        width: 19%;
+    }
+
+    .actionButtons {
         flex-direction: column;
         gap: 0.5rem;
     }
@@ -480,53 +503,49 @@
     }
 
     .editInputFN,
-  .editInputLN,
-  .editInputDate,
-  .idNumberInput,
-  .type,
-  input[type="text"],
-  input[type="date"],
-  input[type="number"],
-  input[type="email"],
-  textarea {
-    width: 90% !important;
-    max-width: 90% !important;
-    margin: 0 auto !important;
-    display: block;
-  }
+    .editInputLN,
+    .editInputDate,
+    .idNumberInput,
+    .type,
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    input[type="email"],
+    textarea {
+        width: 90% !important;
+        max-width: 90% !important;
+        margin: 0 auto !important;
+        display: block;
+    }
 
-  /* 2. Les blocs left/middle/right passent à 100% pour ne plus laisser d’espace vide */
-  .left,
-  .middle,
-  .right,
-  .rightt {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
-  }
+    .left,
+    .middle,
+    .right,
+    .rightt {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
 
-  /* 3. Le container principal doit s’étirer sur toute la largeur, sans vide */
-  .contentRow {
-    flex-direction: column !important;
-    align-items: center !important; /* ou flex-start si tu veux coller tout à gauche */
-    width: 100% !important;
-    padding: 0 !important;
-    margin-bottom: 0 !important;
-  }
+    .contentRow {
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin-bottom: 0 !important;
+    }
 
-  /* 4. Si besoin, force les labels à ne pas prendre de place inutile */
-  .editLabel {
-    width: 100% !important;
-    margin-bottom: 0.25rem;
-  }
+    .editLabel {
+        width: 100% !important;
+        margin-bottom: 0.25rem;
+    }
 
-  /* 5. Vérifie qu’il n’y a pas de padding / margin vestigiaux dans le parent */
-  .card,
-  .resultWrapper {
-    padding: 1rem !important;
-    margin: 0 !important;
-    width: 100% !important;
-  }
+    .card,
+    .resultWrapper {
+        padding: 1rem !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
 }
 
 

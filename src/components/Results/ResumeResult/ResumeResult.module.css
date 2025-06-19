@@ -434,7 +434,7 @@
 }
 
 .editInputSkills {
-  width:98%;
+  width: 98%;
   border: none;
   outline: none;
   font-size: 1rem;
@@ -560,6 +560,7 @@
 .darkeditLabel {
   color: #ccc;
 }
+
 @media (max-width: 1024px) {
   .resultWrapper {
     flex-direction: column;
@@ -606,7 +607,7 @@
     margin-bottom: 10px;
   }
 
-  
+
   .languages {
     margin-left: 0;
     gap: 0.5rem;
@@ -639,9 +640,11 @@
   .topRightWrapper {
     justify-content: space-between;
   }
-.editInputSkills{
-  width: 90%;
-}
+
+  .editInputSkills {
+    width: 90%;
+  }
+
   .actionButtons {
     display: flex;
     flex-direction: column;
@@ -680,7 +683,7 @@
     gap: 0.5rem;
   }
 
-  
+
 }
 
 

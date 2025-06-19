@@ -56,47 +56,45 @@ const ProcessButton = () => {
 
   //   setLoading(false);
   // };
-const handleClick = async () => {
-  if (loading) return;
+  const handleClick = async () => {
+    if (loading) return;
 
-  // 🚨 Ajout de vérifications pour éviter les envois foireux
-  if (!docType) {
-    alert("Veuillez sélectionner un type de document.");
-    return;
-  }
+    if (!docType) {
+      alert("Veuillez sélectionner un type de document.");
+      return;
+    }
 
-  if (!uploadedFiles || uploadedFiles.length === 0) {
-    alert("Veuillez ajouter au moins un fichier.");
-    return;
-  }
+    if (!uploadedFiles || uploadedFiles.length === 0) {
+      alert("Veuillez ajouter au moins un fichier.");
+      return;
+    }
 
-  setExtractedData(null);
-  setSelectedCards([]);
-  setDetectedCountries([]);
-  setFilterMode("Manually");
-  setSelectedCountry("anywhere");
-  setSearchTerm("");
-  setLoading(true);
+    setExtractedData(null);
+    setSelectedCards([]);
+    setDetectedCountries([]);
+    setFilterMode("Manually");
+    setSelectedCountry("anywhere");
+    setSearchTerm("");
+    setLoading(true);
 
-  try {
-    const result = await extractDocuments(docType, uploadedFiles);
+    try {
+      const result = await extractDocuments(docType, uploadedFiles);
 
-    // 🟢 Correction ici → result est un tableau direct
-    const enrichedDocs = result.map((doc, index) => ({
-      ...doc,
-      _sourceFileIndex: index,
-      _sourceFileName: uploadedFiles[index]?.name || `file_${index}`
-    }));
+      const enrichedDocs = result.map((doc, index) => ({
+        ...doc,
+        _sourceFileIndex: index,
+        _sourceFileName: uploadedFiles[index]?.name || `file_${index}`
+      }));
 
-    setExtractedData(enrichedDocs);
-  } catch (err) {
-    console.error("Parsing error:", err);  // pour debug en dev
-    setErrorMessage(t.unexpected_error);
-    setIsErrorOpen(true);
-  }
+      setExtractedData(enrichedDocs);
+    } catch (err) {
+      console.error("Parsing error:", err);
+      setErrorMessage(t.unexpected_error);
+      setIsErrorOpen(true);
+    }
 
-  setLoading(false);
-};
+    setLoading(false);
+  };
 
   const closeErrorModal = () => {
     setIsErrorOpen(false);
