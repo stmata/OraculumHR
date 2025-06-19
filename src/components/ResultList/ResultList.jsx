@@ -39,7 +39,10 @@ const ResultList = () => {
         }
 
     }, [filterMode, extractedData, setSelectedCards]);
-
+    
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchTerm, selectedCountry, filterMode]);
     if (!extractedData || extractedData.length === 0) return null;
 
 
