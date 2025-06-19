@@ -18,16 +18,14 @@
 //   if (!res.ok) throw new Error("Export failed");
 //   return res;
 // };
-// const BASE_URL = (window._env_?.VITE_APP_BAS_URL || import.meta.env.VITE_APP_BASE_URL).replace(/\/$/, "");
-const BASE_URL =
-  (window._env_?.VITE_APP_BASE_URL || import.meta.env.VITE_APP_BASE_URL || "").replace(/\/$/, "");
 
-if (!BASE_URL) {
-  console.warn("BASE_URL is not defined. Check your env variables.");
-}
+const BASE_URL = window._env_?.VITE_APP_BASE_URL;
+// const BASE_URL = (window._env_?.VITE_APP_BAS_URL || import.meta.env.VITE_APP_BASE_URL).replace(/\/$/, "");
+
 // const BASE_URL = import.meta.env.VITE_APP_BASE_URL.replace(/\/$/, "");
 
 export const postFormData = async (endpoint, formData) => {
+  console.log(formData)
   const res = await fetch(`${BASE_URL}${endpoint}`, {
     method: "POST",
     body: formData,
@@ -50,6 +48,5 @@ export const postJSON = async (endpoint, jsonBody, format) => {
     const text = await res.text();
     throw new Error(`Export failed: ${res.status} ${text}`);
   }
-  console.log(res);
   return res;
 };
